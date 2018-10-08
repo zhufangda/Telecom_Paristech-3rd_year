@@ -1,0 +1,505 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Compte Rendu de TP "D&eacute;cision Bay&eacute;sienne"</title><meta name="generator" content="MATLAB 8.6"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-09-23"><meta name="DC.source" content="exo2.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Compte Rendu de TP "D&eacute;cision Bay&eacute;sienne"</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">2. G&eacute;n&eacute;ration d'une variable al&eacute;atoire gaussienne</a></li><li><a href="#3">3. G&eacute;neration de vecteurs al&eacute;atoire gaussiens</a></li><li><a href="#14">4.Couleur d'&eacute;quidensit&eacute;</a></li><li><a href="#18">5. Visualizsation des fronti&egrave;res</a></li><li><a href="#19">6.Application</a></li></ul></div><h2>2. G&eacute;n&eacute;ration d'une variable al&eacute;atoire gaussienne<a name="1"></a></h2><pre class="codeinput">N = 1000;
+means = ones(1,N);
+vars = ones(1,N);
+sample = 3 + 2.*randn(1,N);
+<span class="keyword">for</span> n = 1:N;
+   means(1,n) = mean(sample(1,1:n));
+   vars(1,n) = var(sample(1,1:n));
+<span class="keyword">end</span>
+index = linspace(1,N,N);
+</pre><p>D'apr&egrave;s la figure ci-dessus, on peut constate que le moyen empirique et la variance empirique tends vers le moyen ideal et le variance id&eacute;al.</p><pre class="codeinput">close <span class="string">all</span>
+figure(1)
+plot(index, means)
+hold <span class="string">on</span>
+plot(index, vars)
+axis([1 N 0 8])
+legend({<span class="string">'$$\mu=3$$'</span>, <span class="string">'$$\mu=4$$'</span>},<span class="string">'Interpreter'</span>,<span class="string">'latex'</span>)
+</pre><img vspace="5" hspace="5" src="exo2_01.png" alt=""> <h2>3. G&eacute;neration de vecteurs al&eacute;atoire gaussiens<a name="3"></a></h2><p>1)</p><pre class="codeinput">N = 100;
+mu = [4 * ones(N,1),  9*ones(N,1)];
+Z1 = mu + randn(100,2);
+
+fig=figure(2);
+hax=axes;
+scatter(Z1(:, 1), Z1(:,2), <span class="string">'.'</span>)
+SP=4; <span class="comment">%your point goes here</span>
+line([4 4],get(hax,<span class="string">'YLim'</span>),<span class="string">'Color'</span>,[1 0 0])
+line(get(hax,<span class="string">'XLim'</span>),[9 9],<span class="string">'Color'</span>,[1 0 0])
+</pre><img vspace="5" hspace="5" src="exo2_02.png" alt=""> <p>2)</p><pre class="codeinput">N = 10000;
+mu = [4 9];
+Sigma = [1 0; 0 6]; R = chol(Sigma);
+Z2 = repmat(mu,N,1) + randn(N,2)*R;
+
+Z2_means = mean(Z2)
+Z2_cov = cov(Z2)
+</pre><p>D'apr&egrave;s le resulta ci-dessous, on constate que le moyen et la covariance que l'on obtiens bien conresponds &agrave; ce qu'on demand.</p><pre class="codeoutput">
+Z2_means =
+
+    3.9994    9.0151
+
+
+Z2_cov =
+
+    1.0200   -0.0288
+   -0.0288    6.0630
+
+</pre><p>3) TODO</p><p>4)</p><pre class="codeinput">N = 10000;
+sigma3 = [2 2;2 5];
+U = sqrtm(sigma3);
+
+Z4 = randn(N,2)*U.';
+
+Z4_means = mean(Z4)
+Z4_cov = cov(Z4)
+</pre><p>D'apr&egrave;s le resulta ci-dessous, on constate que le moyen et la covariance que l'on obtiens bien conresponds &agrave; ce qu'on demand.</p><pre class="codeoutput">
+Z4_means =
+
+   -0.0012   -0.0094
+
+
+Z4_cov =
+
+    2.0207    2.0213
+    2.0213    5.0559
+
+</pre><pre class="codeinput">[V S] = eig(sigma3);
+V1 = V(:,2);
+V2 = V(:, 1);
+orientation = atan2(6, 1)
+</pre><p>L'orientation de l'ellipsoide de Mahalanobis associ&eacute; &agrave; s est 1.4056.</p><pre class="codeoutput">
+orientation =
+
+    1.4056
+
+</pre><pre class="codeinput">s= V * S * V.'
+</pre><p>L'expression <img src="exo2_eq05791749924614324431.png" alt="$s= V.S_d.V^t$"> est bien verifi&eacute;.</p><pre class="codeoutput">
+s =
+
+     2     2
+     2     5
+
+</pre><p>5)</p><pre class="codeinput">mu1 = [4 9];
+sigma1 = [2 2; 2 5];
+R1 = chol(sigma1);
+z1 = repmat(mu1,100,1) + randn(100,2)*R1;
+
+mu2 = [8.5 7.5];
+sigma2 = [2 -2; -2 5];
+R2 = chol(sigma2);
+z2 = repmat(mu2,100,1) + randn(100,2)*R2;
+
+mu3 = [6 3.5];
+sigma3 = [7 -4; -4 7];
+R3 = chol(sigma3);
+z3 = repmat(mu3,100,1) + randn(100,2)*R3;<span class="comment">% que l'on obtiens bien conresponds &agrave; ce qu'on demand.</span>
+
+
+fig_scatter = figure
+line1 = plot(z1(:, 1), z1(:,2), <span class="string">'*'</span>);
+hold <span class="string">on</span>
+line2 = plot(z2(:, 1), z2(:,2), <span class="string">'*'</span>);
+hold <span class="string">on</span>
+line3 = plot(z3(:, 1), z3(:,2), <span class="string">'*'</span>);
+legend({<span class="string">'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'</span>
+    , <span class="string">'$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'</span>
+    , <span class="string">'$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'</span>},<span class="string">'Interpreter'</span>,<span class="string">'latex'</span>)
+</pre><pre class="codeoutput">
+fig_scatter = 
+
+  Figure (3) with properties:
+
+      Number: 3
+        Name: ''
+       Color: [0.9400 0.9400 0.9400]
+    Position: [560 528 560 420]
+       Units: 'pixels'
+
+  Use GET to show all properties
+
+</pre><img vspace="5" hspace="5" src="exo2_03.png" alt=""> <h2>4.Couleur d'&eacute;quidensit&eacute;<a name="14"></a></h2><pre class="codeinput"><span class="comment">% 1)</span>
+X = linspace(0.24,12.5,57);
+Y = linspace(-2, 15,57);
+
+<span class="comment">% 2)</span>
+dens1 = normpdf(X,Y, mu1, sigma1);
+
+<span class="comment">% 3)</span>
+figure
+contour(X,Y,dens1.')
+</pre><p>A l'aide de la fonction contour, on obtiens des contours sou forme de ellipsoide.</p><img vspace="5" hspace="5" src="exo2_04.png" alt=""> <pre class="codeinput">figure()
+
+dens2 = normpdf(X,Y, mu2, sigma2);
+dens3 = normpdf(X,Y, mu3, sigma3);
+
+
+contour(X,Y,dens1.', <span class="string">'LineColor'</span>, get(line1, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+contour(X,Y,dens2.', <span class="string">'LineColor'</span>, get(line2, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+contour(X,Y,dens3.', <span class="string">'LineColor'</span>, get(line3, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+legend({<span class="string">'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'</span>
+    , <span class="string">'$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'</span>
+    , <span class="string">'$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'</span>},<span class="string">'Interpreter'</span>,<span class="string">'latex'</span>)
+
+figure
+mesh(X,Y,dens1)
+hold <span class="string">on</span>
+mesh(X,Y,dens2)
+hold <span class="string">on</span>
+mesh(X,Y,dens3)
+hold <span class="string">on</span>
+</pre><p>TODO</p><img vspace="5" hspace="5" src="exo2_05.png" alt=""> <img vspace="5" hspace="5" src="exo2_06.png" alt=""> <h2>5. Visualizsation des fronti&egrave;res<a name="18"></a></h2><pre class="codeinput">figure(fig_scatter)
+contour(X,Y,dens1.', <span class="string">'LineColor'</span>, get(line1, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+contour(X,Y,dens2.', <span class="string">'LineColor'</span>, get(line2, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+contour(X,Y,dens3.', <span class="string">'LineColor'</span>, get(line3, <span class="string">'Color'</span>))
+hold <span class="string">on</span>
+legend({<span class="string">'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'</span>
+    , <span class="string">'$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'</span>
+    , <span class="string">'$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'</span>},<span class="string">'Interpreter'</span>,<span class="string">'latex'</span>)
+</pre><img vspace="5" hspace="5" src="exo2_07.png" alt=""> <h2>6.Application<a name="19"></a></h2><pre class="codeinput">load(<span class="string">'voitures.mat'</span>);
+
+class1 = cars(find(cars(:, 8) == 1.0), [1,5]);
+class2 = cars(find(cars(:, 8) == 2.0), [1,5]);
+class3 = cars(find(cars(:, 8) == 3.0), [1,5]);
+
+min1 = min(class1);
+max1 = max(class1);
+mu1 = mean(class1);
+cov1 = cov(class1);
+
+
+min2 = min(class2);
+max2 = max(class2);
+mu2 = mean(class2);
+cov2 = cov(class2);
+
+
+min3 = min(class2);
+max3 = max(class2);
+mu3 = mean(class3);
+cov3 = cov(class3);
+
+X = linspace(2.5,45,100);
+Y = linspace(1000,5500,100);
+
+dens1 = normpdf(X,Y, mu1, cov1);
+dens2 = normpdf(X,Y, mu2, cov2);
+dens3 = normpdf(X,Y, mu3, cov2);
+
+figure
+line4 = plot(class1(:, 1), class1(:,2), <span class="string">'*'</span>);
+hold <span class="string">on</span>
+line5 = plot(class2(:, 1), class2(:,2), <span class="string">'*'</span>);
+hold <span class="string">on</span>
+line6 =plot(class3(:, 1), class3(:,2), <span class="string">'*'</span>);
+
+
+contour(X,Y,dens1.',3, <span class="string">'LineColor'</span>, <span class="string">'r'</span>)
+hold <span class="string">on</span>
+contour(X,Y,dens2.',3,<span class="string">'LineColor'</span>, <span class="string">'c'</span>)
+hold <span class="string">on</span>
+contour(X,Y,dens3.',3,<span class="string">'LineColor'</span>, <span class="string">'b'</span>)
+
+
+legend(<span class="string">'USA'</span>, <span class="string">'Europ'</span>, <span class="string">'Asie'</span>,<span class="string">'USA'</span>, <span class="string">'Europ'</span>, <span class="string">'Asie'</span>)
+</pre><img vspace="5" hspace="5" src="exo2_08.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2015b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Compte Rendu de TP "Décision Bayésienne"
+%
+%
+
+%% 2. Génération d'une variable aléatoire gaussienne
+
+N = 1000;
+means = ones(1,N);
+vars = ones(1,N);
+sample = 3 + 2.*randn(1,N); 
+for n = 1:N;
+   means(1,n) = mean(sample(1,1:n));
+   vars(1,n) = var(sample(1,1:n));
+end
+index = linspace(1,N,N);
+
+%%
+% D'après la figure ci-dessus, on peut constate que le moyen empirique et
+% la variance empirique tends vers le moyen ideal et le variance idéal.
+
+close all
+figure(1)
+plot(index, means)
+hold on
+plot(index, vars)
+axis([1 N 0 8])    
+legend({'$$\mu=3$$', '$$\mu=4$$'},'Interpreter','latex')
+
+%% 3. Géneration de vecteurs aléatoire gaussiens
+% 1)
+N = 100;
+mu = [4 * ones(N,1),  9*ones(N,1)];
+Z1 = mu + randn(100,2);
+
+fig=figure(2);
+hax=axes; 
+scatter(Z1(:, 1), Z1(:,2), '.') 
+SP=4; %your point goes here 
+line([4 4],get(hax,'YLim'),'Color',[1 0 0])
+line(get(hax,'XLim'),[9 9],'Color',[1 0 0])
+
+%%
+% 2)
+N = 10000;
+mu = [4 9];
+Sigma = [1 0; 0 6]; R = chol(Sigma);
+Z2 = repmat(mu,N,1) + randn(N,2)*R;
+
+Z2_means = mean(Z2)
+Z2_cov = cov(Z2)
+
+%%%
+% D'après le resulta ci-dessous, on constate que le moyen et la covariance 
+% que l'on obtiens bien conresponds à ce qu'on demand. 
+
+%%
+% 3)
+% TODO
+
+
+%%
+% 4)
+N = 10000;
+sigma3 = [2 2;2 5];
+U = sqrtm(sigma3);
+
+Z4 = randn(N,2)*U.';
+
+Z4_means = mean(Z4)
+Z4_cov = cov(Z4)
+
+%%%
+% D'après le resulta ci-dessous, on constate que le moyen et la covariance 
+% que l'on obtiens bien conresponds à ce qu'on demand.
+
+%%
+[V S] = eig(sigma3);
+V1 = V(:,2);
+V2 = V(:, 1);
+orientation = atan2(6, 1)
+
+%%%
+% L'orientation de l'ellipsoide de Mahalanobis associé à s est 1.4056.
+
+%%
+s= V * S * V.'
+
+%%%
+% L'expression $s= V.S_d.V^t$ est bien verifié.
+
+%%
+% 5)
+mu1 = [4 9];
+sigma1 = [2 2; 2 5];
+R1 = chol(sigma1);
+z1 = repmat(mu1,100,1) + randn(100,2)*R1;
+
+mu2 = [8.5 7.5];
+sigma2 = [2 -2; -2 5];
+R2 = chol(sigma2);
+z2 = repmat(mu2,100,1) + randn(100,2)*R2;
+
+mu3 = [6 3.5];
+sigma3 = [7 -4; -4 7];
+R3 = chol(sigma3);
+z3 = repmat(mu3,100,1) + randn(100,2)*R3;% que l'on obtiens bien conresponds à ce qu'on demand.
+
+
+fig_scatter = figure
+line1 = plot(z1(:, 1), z1(:,2), '*');
+hold on
+line2 = plot(z2(:, 1), z2(:,2), '*');
+hold on
+line3 = plot(z3(:, 1), z3(:,2), '*');
+legend({'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'
+    , '$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'
+    , '$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'},'Interpreter','latex')
+
+
+%% 4.Couleur d'équidensité
+
+% 1)
+X = linspace(0.24,12.5,57);
+Y = linspace(-2, 15,57);
+
+% 2)
+dens1 = normpdf(X,Y, mu1, sigma1);
+
+% 3)
+figure
+contour(X,Y,dens1.')
+
+%%%
+% A l'aide de la fonction contour, on obtiens des contours sou forme de
+% ellipsoide.
+
+%%
+figure()
+
+dens2 = normpdf(X,Y, mu2, sigma2);
+dens3 = normpdf(X,Y, mu3, sigma3);
+
+
+contour(X,Y,dens1.', 'LineColor', get(line1, 'Color'))
+hold on
+contour(X,Y,dens2.', 'LineColor', get(line2, 'Color'))
+hold on
+contour(X,Y,dens3.', 'LineColor', get(line3, 'Color'))
+hold on
+legend({'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'
+    , '$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'
+    , '$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'},'Interpreter','latex')
+
+figure
+mesh(X,Y,dens1)
+hold on
+mesh(X,Y,dens2)
+hold on
+mesh(X,Y,dens3)
+hold on
+%%%
+% TODO
+
+%% 5. Visualizsation des frontières
+figure(fig_scatter)
+contour(X,Y,dens1.', 'LineColor', get(line1, 'Color'))
+hold on
+contour(X,Y,dens2.', 'LineColor', get(line2, 'Color'))
+hold on
+contour(X,Y,dens3.', 'LineColor', get(line3, 'Color'))
+hold on
+legend({'$$\mu=[4\:9] \quad \sigma = [2\:2 ,2\:5]$$'
+    , '$$\mu=[8.5 \: 7.5] \quad \sigma = [2 \: -2,-2 \: 5]$$'
+    , '$$\mu=[6 \: 3.5] \quad \sigma = [7 \: -4,-4 \: 7]$$'},'Interpreter','latex')
+
+
+
+%% 6.Application 
+load('voitures.mat');
+
+class1 = cars(find(cars(:, 8) == 1.0), [1,5]);
+class2 = cars(find(cars(:, 8) == 2.0), [1,5]);
+class3 = cars(find(cars(:, 8) == 3.0), [1,5]);
+
+min1 = min(class1);
+max1 = max(class1);
+mu1 = mean(class1);
+cov1 = cov(class1);
+
+
+min2 = min(class2);
+max2 = max(class2);
+mu2 = mean(class2);
+cov2 = cov(class2);
+
+
+min3 = min(class2);
+max3 = max(class2);
+mu3 = mean(class3);
+cov3 = cov(class3);
+
+X = linspace(2.5,45,100);
+Y = linspace(1000,5500,100);
+
+dens1 = normpdf(X,Y, mu1, cov1);
+dens2 = normpdf(X,Y, mu2, cov2);
+dens3 = normpdf(X,Y, mu3, cov2);
+
+figure
+line4 = plot(class1(:, 1), class1(:,2), '*');
+hold on
+line5 = plot(class2(:, 1), class2(:,2), '*');
+hold on
+line6 =plot(class3(:, 1), class3(:,2), '*');
+
+
+contour(X,Y,dens1.',3, 'LineColor', 'r')
+hold on
+contour(X,Y,dens2.',3,'LineColor', 'c')
+hold on
+contour(X,Y,dens3.',3,'LineColor', 'b')
+
+
+legend('USA', 'Europ', 'Asie','USA', 'Europ', 'Asie')
+
+
+
+##### SOURCE END #####
+--></body></html>
