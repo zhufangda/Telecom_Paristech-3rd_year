@@ -1,0 +1,344 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>TP</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-07"><meta name="DC.source" content="TP.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">SI 221 : Reseaux de neurones</a></li><li><a href="#2">3.1 Rappel de la r&egrave;gle du perceptron</a></li><li><a href="#3">Apprentissage du perceptron - la th&eacute;orie</a></li><li><a href="#4">Apprentissage du perceptron - impl&eacute;mentation</a></li><li><a href="#9">3.1.2 Effet d'une erreur sur une valeur</a></li><li><a href="#12">3.1.3 Effet d'une erreur "fatale" de saturation</a></li><li><a href="#15">3.1.4 Recherche d'une solution de type perceptron &agrave; un probl&egrave;me donn&eacute;</a></li></ul></div><h2>SI 221 : Reseaux de neurones<a name="1"></a></h2><h2>3.1 Rappel de la r&egrave;gle du perceptron<a name="2"></a></h2><p>Dans ce partie, on attribute 1 aux points de classe 1 et -1 aux points de class 2</p><pre class="codeinput">im1 = ima2mat(<span class="string">'data/landsattarasconC4'</span>);
+image(im1)
+colormap(gray(256))
+samples = im1(:);
+classes = sign(2 * (samples &lt;= 30) -1);
+</pre><pre class="codeoutput">Read from file: data/landsattarasconC4.dim
+     IMA file type ; values in [0, 255] ; size (512, 512)
+Read from file: data/landsattarasconC4.ima
+Image read !
+</pre><img vspace="5" hspace="5" src="TP_01.png" style="width:560px;height:420px;" alt=""> <h2>Apprentissage du perceptron - la th&eacute;orie<a name="3"></a></h2><p>D'apr&egrave;s l'&eacute;nonce du sujet, le vecteur d'&eacute;tat$\hat{X}$ est de dimension 1. Donc le vecteur <img src="TP_eq15500830595642632889.png" alt="$\hat{W}$" style="width:15px;height:15px;"> est de dimension 1. Dans ce cas, Le vecteur <img src="TP_eq07649107795707013777.png" alt="$Y$" style="width:11px;height:11px;"> et le vecteur <img src="TP_eq14900514129597942148.png" alt="$W$" style="width:15px;height:11px;"> peut s'&eacute;crit sous la forme ci-dessous:</p><p><img src="TP_eq04870421164848476541.png" alt="$$ Y = \pmatrix{x  \cr 1 }$$&#xA;et&#xA;$$ W = \pmatrix{x  \cr -b }$$" style="width:165px;height:37px;"></p><p>L'activiation du neurone est <img src="TP_eq02522019863747583881.png" alt="$a= W^TY$" style="width:62px;height:14px;"> . La fonction de l'activation est <img src="TP_eq03188937898288236143.png" alt="$s = f(a) = sign(a)$" style="width:120px;height:16px;"> <img src="TP_eq14900514129597942148.png" alt="$W$" style="width:15px;height:11px;"> est le coeff du ligne qui est capable de bien classer les points dans la figure ci-dessous.</p><pre class="codeinput">scatter(samples, classes)
+</pre><img vspace="5" hspace="5" src="TP_02.png" style="width:560px;height:420px;" alt=""> <h2>Apprentissage du perceptron - impl&eacute;mentation<a name="4"></a></h2><pre class="codeinput">[W, delta, buffer] = perceptron(samples, classes,0.01,3);
+</pre><p>D'apr&egrave;s la figure ci-dessous, on constate que <img src="TP_eq14900514129597942148.png" alt="$W$" style="width:15px;height:11px;"> converge dans le premier &eacute;poques.</p><pre class="codeinput">show_delta(delta, buffer)
+</pre><pre class="codeoutput">
+ncol =
+
+      786432
+
+</pre><img vspace="5" hspace="5" src="TP_03.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_04.png" style="width:560px;height:420px;" alt=""> <p>D'apr&egrave;s la figure ci-dessous, tous les points sont bien class&eacute;s.</p><pre class="codeinput">show_res( W,samples, classes, [25,35], [-2,2] );
+</pre><pre class="codeoutput">Accuracy rate 1.000000, Error rate 0.000000
+</pre><img vspace="5" hspace="5" src="TP_05.png" style="width:560px;height:420px;" alt=""> <p>Si on prend <img src="TP_eq04045906133253683794.png" alt="$\eta = 0.1$" style="width:45px;height:14px;">, <img src="TP_eq14900514129597942148.png" alt="$W$" style="width:15px;height:11px;"> converge dans deuxi&egrave;me epoque. Mais le taux de bonne classification ne change pas.</p><pre class="codeinput">[W2, delta2, buffer2] = perceptron(samples, classes,0.1,10);
+show_delta(delta2, buffer2)
+show_res( W2,samples, classes, [25,35], [-2,2] );
+</pre><pre class="codeoutput">
+ncol =
+
+     2621440
+
+Accuracy rate 1.000000, Error rate 0.000000
+</pre><img vspace="5" hspace="5" src="TP_06.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_07.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_08.png" style="width:560px;height:420px;" alt=""> <p>Il n'est pas normal que ce classifieur donne manifestement toujours le bon r&eacute;sultat. Car il est difficile d'obtenir les donn&eacute;es sans brut.</p><h2>3.1.2 Effet d'une erreur sur une valeur<a name="9"></a></h2><p>2391 de pixels sont concern&eacute;s par ce changement.</p><pre class="codeinput">hist(samples == 110);
+nb_conserne = sum(samples == 110)
+</pre><pre class="codeoutput">
+nb_conserne =
+
+        2391
+
+</pre><img vspace="5" hspace="5" src="TP_09.png" style="width:560px;height:420px;" alt=""> <pre class="codeinput">classes_110 =  sign(2 * ((samples &lt;= 30) + (samples == 110)) -1);
+[W3, delta3, buffer3] = perceptron(samples, classes_110,0.01,10);
+show_delta(delta3, buffer3)
+show_res( W3,samples, classes_110, [1,255] , [-2,2] );
+</pre><pre class="codeoutput">
+ncol =
+
+     2621440
+
+Accuracy rate 0.990040, Error rate 0.009960
+</pre><img vspace="5" hspace="5" src="TP_10.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_11.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_12.png" style="width:560px;height:420px;" alt=""> <p>M&ecirc;me si les points concern&eacute; &agrave; valeur 110 sont tr&egrave;s petit, il aussi une influence important sur le r&eacute;sultat. On peut imaginer que les autres points penvent rendre ce procesus stable, c'est &agrave; dire trouver une ligne qui est capable de bien classer les points ne pas consern&eacute; au value 110. Chaque fois le stabilit&eacute; est d&eacute;truit quand la processus rencontre les points consern&eacute; au value 110 et ces points biaisent le ligne.</p><h2>3.1.3 Effet d'une erreur "fatale" de saturation<a name="12"></a></h2><pre class="codeinput">hist(samples &gt;= 141);
+nb_conserne = sum(samples == 110)
+</pre><pre class="codeoutput">
+nb_conserne =
+
+        2391
+
+</pre><img vspace="5" hspace="5" src="TP_13.png" style="width:560px;height:420px;" alt=""> <pre class="codeinput">classes_140 =  sign(2 * ((samples &lt;= 30) + (samples &gt;= 140)) -1);
+[W4, delta4, buffer4] = perceptron(samples, classes_140,0.01,10);
+show_delta(delta4, buffer4)
+show_res( W4,samples, classes_140, [1,255] , [-2,2] );
+</pre><pre class="codeoutput">
+ncol =
+
+     2621440
+
+Accuracy rate 0.956371, Error rate 0.043629
+</pre><img vspace="5" hspace="5" src="TP_14.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_15.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_16.png" style="width:560px;height:420px;" alt=""> <p>Sachant que le nombre de feature est limit. Ces porcessus a tent&eacute; de trouver une ligne qui est capable de classer tous points. Mais une ligne droite ne sont pas suffisant pour classer les points. On a besoin plus de couche de neurone afin de r&eacute;soudre ces probl&egrave;me.</p><h2>3.1.4 Recherche d'une solution de type perceptron &agrave; un probl&egrave;me donn&eacute;<a name="15"></a></h2><pre class="codeinput">figure()
+im3 = ima2mat(<span class="string">'tarascon2Classes'</span>);
+colormap(gray(2))
+image(im3 + 1)
+
+classes_mask = 2*im3(:)-1;
+[W4, delta4, buffer4] = perceptron(samples, classes_mask,0.01,10);
+show_delta(delta4, buffer4)
+show_res( W4,samples, classes_mask, [1,255] , [-2,2] );
+</pre><pre class="codeoutput">Read from file: tarascon2Classes.dim
+     IMA file type ; values in [0, 255] ; size (512, 512)
+Read from file: tarascon2Classes.ima
+Image read !
+
+ncol =
+
+     2621440
+
+Accuracy rate 0.781239, Error rate 0.218761
+</pre><img vspace="5" hspace="5" src="TP_17.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_18.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_19.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="TP_20.png" style="width:560px;height:420px;" alt=""> <p>Il est possible d'apprendre &agrave; partir de ce masque un perceptron. Mais le taux de bonne classification est relativement bas. Mais il est mieux que on devine le result al&eacute;atorement.</p><p>Si on onsid&egrave;re la position du pixel, la taux de bonne classification est reduit. Du coup, dans ce cas, une seule couche de reseau n'est plus suffisant.</p><pre class="codeinput">nrow = size(im1,1);
+ncol = size(im1,2);
+samples_1 = zeros(nrow*ncol,3);
+<span class="keyword">for</span> i=1:nrow
+    <span class="keyword">for</span> j=1:ncol
+        samples_1((i-1)*ncol + j,:) = [i, j, im1(i,j)];
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeinput">n_iter = 10;
+W5 = ones(4,1);
+eta = 0.01;
+buffer = zeros(n_iter * size(samples,1),4);
+delta = zeros(n_iter * size(samples,1),4);
+taille = size(samples,1);
+as = size(n_iter * ncol*nrow,4);
+
+<span class="keyword">for</span> k=1:n_iter
+    <span class="keyword">for</span> i= 1: ncol*nrow
+        Y = [samples_1(i,:) , 1].';
+
+        a = sign( 2*((W5.' * Y)&gt;=0)-1);
+        as((k-1)*taille + i,:) = a;
+        W_ = W5  - (a - classes_mask(i)) * eta * Y;
+        buffer((k-1)*taille + i,:) = W_;
+        delta((k-1)*taille + i,:) = abs(W_ - W5).';
+        W5 = W_;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><pre class="codeinput">accuracy = 0;
+<span class="keyword">for</span> i=1:size(classes_mask)
+    X = [samples_1(i,:) , 1].';
+    y_predit = sign( 2*((W5.' * X)&gt;=0)-1);
+    <span class="keyword">if</span>(classes_mask(i) == y_predit)
+       accuracy = accuracy + 1 ;
+    <span class="keyword">else</span>
+      <span class="comment">%fprintf('index %d, value %d, classes %d, prediction %d', i, samples(i),classes(i), y_predit);</span>
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+fprintf(<span class="string">'Accuracy rate %f, Error rate %f\n'</span>, accuracy / taille, 1.0 - accuracy / taille);
+</pre><pre class="codeoutput">Accuracy rate 0.646694, Error rate 0.353306
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+ 
+%% SI 221 : Reseaux de neurones
+%% 3.1 Rappel de la règle du perceptron
+% Dans ce partie, on attribute 1 aux points de classe 1 et -1 aux points de
+% class 2
+im1 = ima2mat('data/landsattarasconC4');
+image(im1)
+colormap(gray(256))
+samples = im1(:);
+classes = sign(2 * (samples <= 30) -1);
+
+%% Apprentissage du perceptron - la théorie
+% D'après l'énonce du sujet, le vecteur d'état$\hat{X}$ est de dimension 1.
+% Donc le vecteur $\hat{W}$ est de dimension 1. Dans ce cas, Le vecteur $Y$ et
+% le vecteur $W$ peut s'écrit sous la forme ci-dessous:
+%
+% $$ Y = \pmatrix{x  \cr 1 }$$
+% et
+% $$ W = \pmatrix{x  \cr -b }$$
+%
+% L'activiation du neurone est $a= W^TY$ . 
+% La fonction de l'activation est $s = f(a) = sign(a)$
+% $W$ est le coeff du ligne qui est capable de bien classer les points dans
+% la figure ci-dessous. 
+scatter(samples, classes)
+
+%% Apprentissage du perceptron - implémentation
+[W, delta, buffer] = perceptron(samples, classes,0.01,3);
+%%
+% D'après la figure ci-dessous, on constate que $W$ converge dans le
+% premier époques.
+show_delta(delta, buffer)
+
+%%
+% D'après la figure ci-dessous, tous les points sont bien classés.
+show_res( W,samples, classes, [25,35], [-2,2] );
+
+%%
+% Si on prend $\eta = 0.1$, $W$ converge dans deuxième epoque. 
+% Mais le taux de bonne classification ne change pas.
+[W2, delta2, buffer2] = perceptron(samples, classes,0.1,10);
+show_delta(delta2, buffer2)
+show_res( W2,samples, classes, [25,35], [-2,2] );
+
+%%
+% Il n'est pas normal que ce classifieur donne manifestement toujours le
+% bon résultat. Car il est difficile d'obtenir les données sans brut.
+
+%% 3.1.2 Effet d'une erreur sur une valeur
+% 2391 de pixels sont concernés par ce changement.
+hist(samples == 110);
+nb_conserne = sum(samples == 110)
+
+%%
+classes_110 =  sign(2 * ((samples <= 30) + (samples == 110)) -1);
+[W3, delta3, buffer3] = perceptron(samples, classes_110,0.01,10);
+show_delta(delta3, buffer3)
+show_res( W3,samples, classes_110, [1,255] , [-2,2] );
+
+%% 
+% Même si les points concerné à valeur 110 sont très petit, il aussi une
+% influence important sur le résultat. On peut imaginer que les autres
+% points penvent rendre ce procesus stable, c'est à dire trouver une ligne
+% qui est capable de bien classer les points ne pas conserné au value 110.
+% Chaque fois le stabilité est détruit quand la processus rencontre les
+% points conserné au value 110 et ces points biaisent le ligne. 
+
+%% 3.1.3 Effet d'une erreur "fatale" de saturation
+hist(samples >= 141);
+nb_conserne = sum(samples == 110)
+
+%%
+classes_140 =  sign(2 * ((samples <= 30) + (samples >= 140)) -1);
+[W4, delta4, buffer4] = perceptron(samples, classes_140,0.01,10);
+show_delta(delta4, buffer4)
+show_res( W4,samples, classes_140, [1,255] , [-2,2] );
+%% 
+% Sachant que le nombre de feature est limit. Ces porcessus a tenté de 
+% trouver une ligne qui est capable de classer tous points. Mais une 
+% ligne droite ne sont pas suffisant pour classer les points. On a besoin 
+% plus de couche de neurone afin de résoudre ces problème.
+
+%% 3.1.4 Recherche d'une solution de type perceptron à un problème donné
+%
+figure()
+im3 = ima2mat('tarascon2Classes');
+colormap(gray(2))
+image(im3 + 1)
+
+classes_mask = 2*im3(:)-1;
+[W4, delta4, buffer4] = perceptron(samples, classes_mask,0.01,10);
+show_delta(delta4, buffer4)
+show_res( W4,samples, classes_mask, [1,255] , [-2,2] );
+
+%%
+% Il est possible d'apprendre à partir de ce masque un perceptron. Mais le
+% taux de bonne classification est relativement bas. Mais il est mieux que 
+% on devine le result aléatorement.
+
+%%
+% Si on onsidère la position du pixel, la taux de bonne classification est
+% reduit. Du coup, dans ce cas, une seule couche de reseau n'est plus suffisant. 
+nrow = size(im1,1);
+ncol = size(im1,2);
+samples_1 = zeros(nrow*ncol,3);
+for i=1:nrow
+    for j=1:ncol
+        samples_1((i-1)*ncol + j,:) = [i, j, im1(i,j)];
+    end
+end
+
+%%
+n_iter = 10;
+W5 = ones(4,1);
+eta = 0.01;
+buffer = zeros(n_iter * size(samples,1),4);
+delta = zeros(n_iter * size(samples,1),4);
+taille = size(samples,1);
+as = size(n_iter * ncol*nrow,4);
+
+for k=1:n_iter          
+    for i= 1: ncol*nrow
+        Y = [samples_1(i,:) , 1].';
+
+        a = sign( 2*((W5.' * Y)>=0)-1);
+        as((k-1)*taille + i,:) = a;
+        W_ = W5  - (a - classes_mask(i)) * eta * Y;
+        buffer((k-1)*taille + i,:) = W_;
+        delta((k-1)*taille + i,:) = abs(W_ - W5).';
+        W5 = W_;
+    end
+end
+
+
+%%
+accuracy = 0;
+for i=1:size(classes_mask)
+    X = [samples_1(i,:) , 1].';
+    y_predit = sign( 2*((W5.' * X)>=0)-1);
+    if(classes_mask(i) == y_predit)
+       accuracy = accuracy + 1 ;
+    else
+      %fprintf('index %d, value %d, classes %d, prediction %d', i, samples(i),classes(i), y_predit);
+    end
+end
+fprintf('Accuracy rate %f, Error rate %f\n', accuracy / taille, 1.0 - accuracy / taille);
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>
