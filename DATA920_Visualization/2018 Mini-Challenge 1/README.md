@@ -1,5 +1,5 @@
 # 2018 Mini-Challenge 1
-Author: Henri Hours, Taha Halal, Fangda ZHU, YU Xiang
+Author: HOURS Henri, HALAL Taha , ZHU Fangda, XIANG Yu
 
 ## Description file structure:
 - The notebook for the first assignment  
