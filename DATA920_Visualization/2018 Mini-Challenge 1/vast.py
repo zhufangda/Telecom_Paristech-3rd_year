@@ -8,6 +8,7 @@ import datetime as dt
 import os
 import re
 import imageio
+from dateutil import parser 
 
 def vectorize(path):
     '''
@@ -43,7 +44,7 @@ def print_map(a, map_contours, title):
            label ="dumping site", zorder=10)
     for contour in map_contours:
         a.plot(contour[:, 1], contour[:, 0], 
-               linewidth=1, color='black', zorder=2)
+               linewidth=1, color='#662506', zorder=2)
     a.set_title(title, fontsize=20)
     a.legend()
     return a
@@ -74,7 +75,13 @@ def clean_grid(X, drop_bad_value=False):
             return X
         else:
              return -1
-            
+
+def clean_time(time) :
+    try : 
+        parsed_time = parser.parse(time).hour
+    except ValueError :
+        parsed_time = 0
+    return parsed_time
             
 def pause(serie_date, nb):
     for i in range(nb):
