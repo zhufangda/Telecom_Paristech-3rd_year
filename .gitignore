@@ -1,4 +1,26 @@
 *.mp3
 *.zip
 *.ipynb_checkpoints
+*.py[co]
+*__pycache__
+*.egg-info
+*~
+*.bak
+.ipynb_checkpoints
+.tox
+.DS_Store
+\#*#
+.#*
+.coverage
+src
+
+*.swp
+*.map
+.idea/
+Read the Docs
+config.rst
+
+/.project
+/.pydevproject
+package-lock.json
 
