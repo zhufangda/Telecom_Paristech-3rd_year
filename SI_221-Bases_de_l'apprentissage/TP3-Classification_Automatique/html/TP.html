@@ -1,0 +1,445 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>SI 221 : ACP et k-moyennes</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-19"><meta name="DC.source" content="TP.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>SI 221 : ACP et k-moyennes</h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">1 Description des donn&eacute;es</a></li><li><a href="#2">1.1 Donn&eacute;es LANDSAT sur Tarascon</a></li><li><a href="#3">1.2 Donn&acute;ees SPOT sur Tarascon</a></li><li><a href="#4">1.3 Donn&eacute;es LANDSAT sur Kedougou</a></li><li><a href="#5">3 Application aux composantes de LANDSAT</a></li><li><a href="#6">Alors on obtiens le pourcentage d'inertie associ&eacute; &agrave; chaque image.</a></li><li><a href="#9">4. Classification automatique : algorithme des K-moyennes</a></li><li><a href="#12">5.BONUS : ACP et k-moyennes sur de nouvelles donn&eacute;es</a></li><li><a href="#13">5.1 Application aux composantes XS de SPOT</a></li><li><a href="#14">Alors on obtiens le pourcentage d'inertie associ&eacute; &agrave; chaque image.</a></li><li><a href="#17">5.2 Application aux composantes de LANDSAT sur Kedougou</a></li><li><a href="#21">5.3 k-moyennes sur SPOT et LANDSAT-Kedougou</a></li></ul></div><h2>1 Description des donn&eacute;es<a name="1"></a></h2><h2>1.1 Donn&eacute;es LANDSAT sur Tarascon<a name="2"></a></h2><pre class="codeinput">[tarascons, tara_names] = load_images(<span class="string">'LANDSAT/'</span>, [512, 512]);
+show_images(tarascons, tara_names, [3,3]);
+</pre><img vspace="5" hspace="5" src="TP_01.png" alt=""> <h2>1.2 Donn&acute;ees SPOT sur Tarascon<a name="3"></a></h2><pre class="codeinput">[spots, spot_names] = load_images(<span class="string">'SPOT/'</span>, [512, 512]);
+show_images(spots, spot_names, [1,3]);
+
+spots_clear = image_clear(spots);
+show_images(spots_clear, spot_names, [1,3]);
+</pre><img vspace="5" hspace="5" src="TP_02.png" alt=""> <img vspace="5" hspace="5" src="TP_03.png" alt=""> <h2>1.3 Donn&eacute;es LANDSAT sur Kedougou<a name="4"></a></h2><pre class="codeinput">[kedougous, kedo_names] = load_images(<span class="string">'Landstat_Kedougou/'</span>, [256, 256]);
+show_images(kedougous, kedo_names, [3,3]);
+
+kedougous_clear = image_clear(kedougous);
+show_images(kedougous_clear, kedo_names, [3,3]);
+</pre><img vspace="5" hspace="5" src="TP_04.png" alt=""> <img vspace="5" hspace="5" src="TP_05.png" alt=""> <h2>3 Application aux composantes de LANDSAT<a name="5"></a></h2><pre class="codeinput">nb_feature = 8;
+nbPix = 512*512;
+
+tabimage = reshape(tarascons(:,:, 1:nb_feature), [nbPix, nb_feature]);
+[T, W, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 512,512,8);
+</pre><h2>Alors on obtiens le pourcentage d'inertie associ&eacute; &agrave; chaque image.<a name="6"></a></h2><pre class="codeinput">lambda = D / sum(D);
+lambda'
+</pre><pre class="codeoutput">
+ans =
+
+  Columns 1 through 7
+
+    0.0013    0.0025    0.0036    0.0168    0.0267    0.0940    0.1698
+
+  Column 8
+
+    0.6853
+
+</pre><p>On costacte que les pourcentages d'inertie de trois premier canal sont tr&egrave;s petite, le rest  ont un pourcentage important. Cela bien correspond &agrave; notre intuition. En effet, le coleur de la terre et celui de la rivi&egrave;re sur l'image de canal 1 sont tr&egrave;s proches , il est difficile de distinguer le fronti&egrave;re.En revanche, on peut trouver le fronti&egrave;re plus facile dans l'image de canal 8. Il est &eacute;vident que le canal 8 contiens plus d'information.</p><pre class="codeinput"><span class="keyword">for</span> i = 1:8
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(3,3,i) , image(I);
+    title( strcat([<span class="string">'$\lambda_'</span> num2str(i)  <span class="string">'='</span> num2str(lambda(i)) <span class="string">'$'</span>]), <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    colormap(gray(256))
+    daspect([1 1 1]);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="TP_06.png" alt=""> <p>Afin de conserver au mois de 95% de l'information, il suffit de garder 4 images, c'est &agrave; dire canal5, canal6 ,canal7 ,canal8 .</p><pre class="codeinput">cumsum(sort(lambda, <span class="string">'descend'</span>))'
+</pre><pre class="codeoutput">
+ans =
+
+  Columns 1 through 7
+
+    0.6853    0.8551    0.9492    0.9758    0.9926    0.9962    0.9987
+
+  Column 8
+
+    1.0000
+
+</pre><h2>4. Classification automatique : algorithme des K-moyennes<a name="9"></a></h2><p>Afin de trouver les prototypes pour chaque canal, on tracer l'histograme.</p><pre class="codeinput">figure()
+<span class="keyword">for</span> i = 1:8
+    img_tmp = tarascons(:,:,i);
+    subplot(3,3,i),hist(img_tmp(:), 0:1:255);
+        xlim([0,255]);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="TP_07.png" alt=""> <p>A partir des figures ci-dessous, on choisir les points ci-dessus comme les prototypes initials.</p><pre class="codeinput">proto1 = [81,95];
+proto2 = [66,90];
+proto3 = [52,62];
+proto4 = [18,90];
+proto5 = [16,85];
+proto6 = [13,85];
+proto7 = [12,30];
+proto8 = [28,64];
+
+
+tabproto = [proto1; proto2; proto3; proto4; proto5; proto6; proto7; proto8];
+tabimage = reshape(tarascons(:, :, 1:8), [512*512, 8]);
+classes = zeros(512*512, 8);
+<span class="keyword">for</span> i=1:8
+    classes(:, i) = kmeans2(tabimage(:,i), tabproto(i,:)');
+<span class="keyword">end</span>
+
+Ms = reshape(classes, 512,512,8);
+Is = image_clear(Ms);
+show_images(Is, tara_names, [3,3]);
+</pre><img vspace="5" hspace="5" src="TP_08.png" alt=""> <p>D'apr&egrave;s la figure ci-dessus, kmeans n'est pas capable de distinguer la terre et la rivi&egrave;re pour le trois premier.En effet, le coulour de rivi&egrave;re et un partie des pixel sur sol sont proche. Donc des pixels sur sol sont consid&egrave;re comme pixel sur rivi&egrave;re. Cela correspond bien aux resultats dans la partie de PCA.</p><h2>5.BONUS : ACP et k-moyennes sur de nouvelles donn&eacute;es<a name="12"></a></h2><h2>5.1 Application aux composantes XS de SPOT<a name="13"></a></h2><pre class="codeinput">nbFeature = 3;
+nbPix = 512*512;
+
+tabimage = reshape(spots, [nbPix, nbFeature]);
+[T, V, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 512,512,3);
+</pre><h2>Alors on obtiens le pourcentage d'inertie associ&eacute; &agrave; chaque image.<a name="14"></a></h2><pre class="codeinput">lambda = D / sum(D);
+lambda'
+</pre><pre class="codeoutput">
+ans =
+
+    0.0270    0.2107    0.7623
+
+</pre><p>On costacte que les pourcentages d'inertie de trois canal est important. Il garde plus de d&eacute;tail. Mais il est plus facile de distinguer la fronti&egrave;re entre le rivi&egrave;re et la terre. Donc le deux canal est plus utils.</p><pre class="codeinput"><span class="keyword">for</span> i = 1:nbFeature
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(1,3,i) , image(I);
+    title( strcat([<span class="string">'$\lambda_'</span> num2str(i)  <span class="string">'='</span> num2str(lambda(i)) <span class="string">'$'</span>]), <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    colormap(gray(256))
+    daspect([1 1 1]);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="TP_09.png" alt=""> <p>Afin de conserver au mois de 90% de l'information, il suffit de garder 2 images, c'est &agrave; dire les deux derniers images .</p><pre class="codeinput">cumsum(sort(lambda, <span class="string">'descend'</span>))'
+</pre><pre class="codeoutput">
+ans =
+
+    0.7623    0.9730    1.0000
+
+</pre><h2>5.2 Application aux composantes de LANDSAT sur Kedougou<a name="17"></a></h2><pre class="codeinput">nb_feature = 7;
+nbPix = 256*256;
+
+tabimage = reshape(kedougous, [nbPix, nb_feature]);
+[T, W, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 256,256,7);
+</pre><p>Alors on obtiens le pourcentage d'inertie associ&eacute; &agrave; chaque image.</p><pre class="codeinput">lambda = D / sum(D);
+lambda'
+</pre><pre class="codeoutput">
+ans =
+
+    0.0035    0.0107    0.0118    0.0360    0.0783    0.1086    0.7510
+
+</pre><p>Pour l'image 2,3,4, m&ecirc;me leurs valeurs propres sont faible, mais on peut observer bien la contour de rivi&egrave;re. le canal 4 et canal 5 sont sensible pour  l'altitude.  Donc on ne peut pas d&eacute;cider simplement la importance de chaque feature par valeur propre.</p><pre class="codeinput"><span class="keyword">for</span> i = 1:7
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(3,3,i) , image(I);
+    title( strcat([<span class="string">'$\lambda_'</span> num2str(i)  <span class="string">'='</span> num2str(lambda(i)) <span class="string">'$'</span>]), <span class="string">'Interpreter'</span>, <span class="string">'latex'</span>);
+    colormap(gray(256))
+    daspect([1 1 1]);
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="TP_10.png" alt=""> <p>Afin de conserver au mois de 95% de l'information, il suffit de garder 4 images, c'est &agrave; dire canal5, canal6 ,canal7 ,canal8 .</p><pre class="codeinput">sort(lambda, <span class="string">'descend'</span>)'
+cumsum(sort(lambda, <span class="string">'descend'</span>))'
+</pre><pre class="codeoutput">
+ans =
+
+    0.7510    0.1086    0.0783    0.0360    0.0118    0.0107    0.0035
+
+
+ans =
+
+    0.7510    0.8596    0.9379    0.9739    0.9858    0.9965    1.0000
+
+</pre><h2>5.3 k-moyennes sur SPOT et LANDSAT-Kedougou<a name="21"></a></h2><p>Si on utilse tous les canaux sur  landsat-kedougou, on obtiens le resultat ci-dessous</p><pre class="codeinput">figure()
+<span class="keyword">for</span> i = 1:6
+    img_tmp = kedougous(:,:,i);
+    subplot(3,2,i),hist(img_tmp(:), 0:1:255);
+    xlim([0,255]);
+<span class="keyword">end</span>
+
+dataset = reshape(kedougous(:, :,1:6), [256*256, 6]);
+index = randsample(1:length(dataset), 5);
+proto = dataset(index, :);
+
+
+[classe, nb_iter] = my_kmeans(dataset, proto);
+
+showClass(classe,[256 256]);
+
+figure();
+
+gplotmatrix(dataset, dataset, classe);
+
+rates = zeros(1,5);
+<span class="keyword">for</span> i = 1:5
+    rates(1,i) = sum( classe==i );
+<span class="keyword">end</span>
+
+rates = rates / size(dataset,1)
+</pre><pre class="codeoutput">
+rates =
+
+    0.1628    0.1733    0.2537    0.0177    0.3925
+
+</pre><img vspace="5" hspace="5" src="TP_11.png" alt=""> <img vspace="5" hspace="5" src="TP_12.png" alt=""> <img vspace="5" hspace="5" src="TP_13.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% SI 221 : ACP et k-moyennes
+
+%% 1 Description des données
+%% 1.1 Données LANDSAT sur Tarascon
+[tarascons, tara_names] = load_images('LANDSAT/', [512, 512]);
+show_images(tarascons, tara_names, [3,3]);
+
+%% 1.2 Donn´ees SPOT sur Tarascon
+
+[spots, spot_names] = load_images('SPOT/', [512, 512]);
+show_images(spots, spot_names, [1,3]);
+
+spots_clear = image_clear(spots);
+show_images(spots_clear, spot_names, [1,3]);
+
+
+
+%% 1.3 Données LANDSAT sur Kedougou
+
+[kedougous, kedo_names] = load_images('Landstat_Kedougou/', [256, 256]);
+show_images(kedougous, kedo_names, [3,3]);
+
+kedougous_clear = image_clear(kedougous);
+show_images(kedougous_clear, kedo_names, [3,3]);
+
+%% 3 Application aux composantes de LANDSAT
+
+nb_feature = 8;
+nbPix = 512*512;
+
+tabimage = reshape(tarascons(:,:, 1:nb_feature), [nbPix, nb_feature]);
+[T, W, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 512,512,8);
+%% Alors on obtiens le pourcentage d'inertie associé à chaque image.
+lambda = D / sum(D);
+lambda'
+
+%% 
+% On costacte que les pourcentages d'inertie de trois premier canal sont très petite, 
+% le rest  ont un pourcentage important. Cela bien correspond à notre intuition. En effet, 
+% le coleur de la terre et celui de la rivière sur l'image de canal 1 sont 
+% très proches , il est difficile de distinguer le frontière.En revanche, 
+% on peut trouver le frontière plus facile dans l'image de canal 8. 
+% Il est évident que le canal 8 contiens plus d'information. 
+
+for i = 1:8
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(3,3,i) , image(I); 
+    title( strcat(['$\lambda_' num2str(i)  '=' num2str(lambda(i)) '$']), 'Interpreter', 'latex'); 
+    colormap(gray(256))
+    daspect([1 1 1]);
+end
+
+%%
+% Afin de conserver au mois de 95% de l'information, il suffit de garder 4
+% images, c'est à dire canal5, canal6 ,canal7 ,canal8 .
+cumsum(sort(lambda, 'descend'))'
+
+%% 4. Classification automatique : algorithme des K-moyennes
+% Afin de trouver les prototypes pour chaque canal, on tracer
+% l'histograme.
+
+figure()
+for i = 1:8
+    img_tmp = tarascons(:,:,i);
+    subplot(3,3,i),hist(img_tmp(:), 0:1:255);
+        xlim([0,255]);
+end
+
+%% 
+% A partir des figures ci-dessous, on choisir les points ci-dessus comme les prototypes initials.
+%
+proto1 = [81,95];
+proto2 = [66,90];
+proto3 = [52,62];
+proto4 = [18,90];
+proto5 = [16,85];
+proto6 = [13,85];
+proto7 = [12,30];
+proto8 = [28,64];
+
+
+tabproto = [proto1; proto2; proto3; proto4; proto5; proto6; proto7; proto8];
+tabimage = reshape(tarascons(:, :, 1:8), [512*512, 8]);
+classes = zeros(512*512, 8);
+for i=1:8
+    classes(:, i) = kmeans2(tabimage(:,i), tabproto(i,:)');
+end
+
+Ms = reshape(classes, 512,512,8);
+Is = image_clear(Ms);
+show_images(Is, tara_names, [3,3]);
+%%
+% D'après la figure ci-dessus, kmeans n'est pas capable de distinguer 
+% la terre et la rivière pour le trois premier.En effet, le coulour de rivière 
+% et un partie des pixel sur sol sont proche. Donc des pixels sur sol sont considère
+% comme pixel sur rivière. Cela correspond bien aux resultats dans la partie de PCA.
+
+
+%% 5.BONUS : ACP et k-moyennes sur de nouvelles données
+%% 5.1 Application aux composantes XS de SPOT
+nbFeature = 3;
+nbPix = 512*512;
+
+tabimage = reshape(spots, [nbPix, nbFeature]);
+[T, V, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 512,512,3);
+%% Alors on obtiens le pourcentage d'inertie associé à chaque image.
+lambda = D / sum(D);
+lambda'
+
+%% 
+% On costacte que les pourcentages d'inertie de trois canal est important.
+% Il garde plus de détail. Mais il est plus facile de distinguer la
+% frontière entre le rivière et la terre. Donc le deux canal est plus utils.
+
+for i = 1:nbFeature
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(1,3,i) , image(I); 
+    title( strcat(['$\lambda_' num2str(i)  '=' num2str(lambda(i)) '$']), 'Interpreter', 'latex'); 
+    colormap(gray(256))
+    daspect([1 1 1]);
+end
+
+%%
+% Afin de conserver au mois de 90% de l'information, il suffit de garder 2
+% images, c'est à dire les deux derniers images .
+cumsum(sort(lambda, 'descend'))'
+
+
+%% 5.2 Application aux composantes de LANDSAT sur Kedougou
+nb_feature = 7;
+nbPix = 256*256;
+
+tabimage = reshape(kedougous, [nbPix, nb_feature]);
+[T, W, D] = my_PCA(tabimage);
+
+post_imgs = reshape(T, 256,256,7);
+%% 
+% Alors on obtiens le pourcentage d'inertie associé à chaque image.
+lambda = D / sum(D);
+lambda'
+
+%% 
+% Pour l'image 2,3,4, même leurs valeurs propres sont faible, mais on peut
+% observer bien la contour de rivière. le canal 4 et canal 5 sont sensible
+% pour  l'altitude.  Donc on ne peut pas décider simplement la importance
+% de chaque feature par valeur propre.
+
+for i = 1:7
+    M = post_imgs(:,:,i);
+    I = 255 * (M - min(M(:)))/(max(M(:)) - min(M(:)));
+    subplot(3,3,i) , image(I); 
+    title( strcat(['$\lambda_' num2str(i)  '=' num2str(lambda(i)) '$']), 'Interpreter', 'latex'); 
+    colormap(gray(256))
+    daspect([1 1 1]);
+end
+
+%%
+% Afin de conserver au mois de 95% de l'information, il suffit de garder 4
+% images, c'est à dire canal5, canal6 ,canal7 ,canal8 .
+sort(lambda, 'descend')'
+cumsum(sort(lambda, 'descend'))'
+
+
+%% 5.3 k-moyennes sur SPOT et LANDSAT-Kedougou
+% Si on utilse tous les canaux sur  landsat-kedougou, on obtiens le
+% resultat ci-dessous
+
+
+figure()
+for i = 1:6
+    img_tmp = kedougous(:,:,i);
+    subplot(3,2,i),hist(img_tmp(:), 0:1:255);
+    xlim([0,255]);
+end
+
+dataset = reshape(kedougous(:, :,1:6), [256*256, 6]);
+index = randsample(1:length(dataset), 5);
+proto = dataset(index, :);
+
+
+[classe, nb_iter] = my_kmeans(dataset, proto);
+
+showClass(classe,[256 256]);
+
+figure();
+
+gplotmatrix(dataset, dataset, classe);
+
+rates = zeros(1,5);
+for i = 1:5
+    rates(1,i) = sum( classe==i );
+end
+
+rates = rates / size(dataset,1)
+
+
+##### SOURCE END #####
+--></body></html>
