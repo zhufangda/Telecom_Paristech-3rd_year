@@ -1,0 +1,404 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Travaux Pratique - Chaines de Morkov</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-23"><meta name="DC.source" content="TP3.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Travaux Pratique - Chaines de Morkov</h1><!--introduction--><p>ZHU Fangda</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">2. Cha&icirc;ne de Markov</a></li><li><a href="#2">2.a. Matrice de transitions</a></li><li><a href="#5">2.b G&eacute;n&eacute;rer un mot</a></li><li><a href="#8">3. G&eacute;n&eacute;rer une phrase</a></li><li><a href="#9">4. Reconnaissance de la langue</a></li></ul></div><h2>2. Cha&icirc;ne de Markov<a name="1"></a></h2><pre class="codeinput">eval(<span class="string">'correspondance'</span>)
+</pre><h2>2.a. Matrice de transitions<a name="2"></a></h2><pre class="codeinput">load <span class="string">'bigramenglish'</span>
+load <span class="string">'bigramfrancais'</span>
+</pre><p>La premier ligne correspond aux propabilit&eacute;s de l'occurence au d&eacute;but de mot pour chaque lettre. La dernier colonnes correspond aux probabilit&eacute;s de l'occurence &agrave; la fin du mot pour chaque lettre de l'alphabet. On peut afficher la transition la plus fr&eacute;quente depuis chaque lettre avec m&eacute;thode ci-dessous:</p><pre class="codeinput">[value, index] = max(bigramenglish');
+
+a = corresp(index + 28);
+</pre><p>La resultat indique que la lettre 't' est le plus fr&eacute;quente lettre comme la premier lettre du mot.</p><pre class="codeinput">display(a)
+</pre><pre class="codeoutput">
+a = 
+
+  Columns 1 through 11
+
+    't'    'n'    'e'    'o'    ' '    ' '    ' '    ' '    'e'    'n'    'o'
+
+  Columns 12 through 22
+
+    ' '    'e'    'e'    ' '    'n'    'e'    'u'    'e'    ' '    'h'    'r'
+
+  Columns 23 through 28
+
+    'e'    'a'    't'    ' '    'e'    ' '
+
+</pre><h2>2.b G&eacute;n&eacute;rer un mot<a name="5"></a></h2><p>L'impl&eacute;mentation du fonction <b>etat_suivant</b></p><pre class="language-matlab">
+<span class="keyword">function</span> [ next_state ] = etat_suivant(current_state, trans_matrix )
+<span class="comment">%UNTITLED3 Summary of this function goes here</span>
+<span class="comment">%   Input:</span>
+<span class="comment">%       current_state : current state</span>
+<span class="comment">%       trans_matrix : transition matrix</span>
+<span class="comment">%   Output:</span>
+<span class="comment">%       next_state : the plus possible state known the current state.</span>
+
+unif = rand();
+cs = cumsum(trans_matrix(current_state,:));
+next_state = 1;
+
+<span class="keyword">while</span> (unif &gt;= cs(next_state))
+    next_state = next_state + 1;
+<span class="keyword">end</span>
+
+
+</pre><p>L'impl&eacute;mentation du fonction <b>genere_stat_seq</b></p><pre class="language-matlab">
+<span class="keyword">function</span> [ seq ] = genere_state_seq(trans_matrix)
+<span class="comment">% Generate a sequence of lettre by transition matrix</span>
+<span class="comment">%   Input:</span>
+<span class="comment">%       trans_matrix : The transition matrix for the HMM</span>
+<span class="comment">%   Output:</span>
+<span class="comment">%       seq :  index sequence of lettre</span>
+
+state = 1;
+seq = [];
+end_flag = size(trans_matrix, 1);
+<span class="keyword">while</span>(state ~= end_flag)
+    state = etat_suivant(state, trans_matrix);
+    seq = [seq state];
+<span class="keyword">end</span>
+
+
+
+
+
+</pre><p>L'impl&eacute;mentation du fonction <b>display_seq</b></p><pre class="language-matlab">
+<span class="keyword">function</span> [ letter_seq ] = display_seq( index_seq, corresp )
+<span class="comment">% Transform a sequence of state to a sequence of lettre</span>
+<span class="comment">%   Input : </span>
+<span class="comment">%       index_seq : sequence of state</span>
+<span class="comment">%       corresp : a dictionary.</span>
+<span class="comment">%                   The key is the state , and the value is the letter. </span>
+<span class="comment">%   Output :</span>
+<span class="comment">%       lettrer_seq : sequence of lettre</span>
+
+letter_seq = [];
+<span class="keyword">for</span> i = 1:size(index_seq,2)
+    state = index_seq(i);
+    <span class="keyword">if</span>(state==1 &amp;&amp; index_seq(i-1)==28)
+        letter_seq = [letter_seq <span class="string">' '</span>];
+    <span class="keyword">elseif</span>(state == 28)
+        <span class="keyword">continue</span>;
+    <span class="keyword">else</span>
+        letter_seq = [letter_seq corresp{index_seq(i),2}] ;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+letter_seq = char(letter_seq);
+display(letter_seq);
+
+</pre><pre class="codeinput">a = genere_state_seq(bigramenglish);
+seq = display_seq(a, corresp);
+</pre><pre class="codeoutput">
+letter_seq =
+
+as
+
+</pre><pre class="codeinput">bar(1:28,bigramenglish(5,:));
+</pre><img vspace="5" hspace="5" src="TP3_01.png" style="width:560px;height:420px;" alt=""> <p>On peut imagine que l'on jette un boule dans le zone blue al&eacute;atoirement, si on jette dans le zone de lettre a, alore on reprise 'a' comme l'&eacute;tat suivant. Comme la proportion surface de la zone de 'a' sur la surface total bien correspond &agrave; son probabilit&eacute;. Avec cette methode, on peut tranformer la distribution uniform&eacute;ment &agrave; la distribution d&eacute;cris par la matrix.</p><h2>3. G&eacute;n&eacute;rer une phrase<a name="8"></a></h2><p>L'impl&eacute;mentation du fonction <b>modifie_mat_dic</b></p><pre class="language-matlab">
+<span class="keyword">function</span> [ corresp_post, trans_mat_post] = modifie_mat_dic(corresp_ori, trans_mat_ori )
+<span class="comment">% Transform the origin transition matrix and dict.</span>
+<span class="comment">%   Input :</span>
+<span class="comment">%       corresp_ori : the original dictionary</span>
+<span class="comment">%       trans_mat_ori : the original transition matrix</span>
+<span class="comment">%   Output :</span>
+<span class="comment">%       corresp_post : the dictionary after transformation</span>
+<span class="comment">%       trans_mat_post : the original after transformation</span>
+<span class="comment">%</span>
+    corresp_post = corresp_ori;
+    corresp_post{29,2} = <span class="string">'.'</span>;
+    corresp_post{29,1} = 29;
+    trans_mat_post = trans_mat_ori;
+    trans_mat_post(:,29) = 0;
+    trans_mat_post(29,:) = 0;
+    trans_mat_post(28,28) = 0.0;
+    trans_mat_post(28, 1) = 0.9;
+    trans_mat_post(28, 29) = 0.1;
+    trans_mat_post(29,29) = 1;
+<span class="keyword">end</span>
+
+
+</pre><pre class="codeinput">[dict, trans_matrix] = modifie_mat_dic(corresp, bigramenglish);
+a = genere_state_seq(trans_matrix);
+seq = display_seq(a, dict);
+</pre><pre class="codeoutput">
+letter_seq =
+
+lint to fan dristh.
+
+</pre><h2>4. Reconnaissance de la langue<a name="9"></a></h2><p>L'impl&eacute;mentation du fonction <b>modifie_mat_dic</b></p><pre class="language-matlab">
+<span class="keyword">function</span> [ likehood, likehood_log ] = calc_vraisemblance(phrase, trans_matrix, dict)
+<span class="comment">% calculate  likelihood function for a sentence specified by the</span>
+<span class="comment">% arguements.</span>
+<span class="comment">%   Input : </span>
+<span class="comment">%       phrase : a string to calculate the likehood.</span>
+<span class="comment">%       trans_matrix : the transition matrix</span>
+<span class="comment">%       dict : a dictionary. The key is the state, the value is the letter.</span>
+<span class="comment">%   Output :</span>
+<span class="comment">%       likehood : the likehoor for the fonction</span>
+<span class="comment">%       likehood_log : the log(likehood) in order to get result more</span>
+<span class="comment">%       exact.</span>
+
+
+<span class="comment">% preprocessing of text</span>
+phrase = lower(strtrim(phrase));
+phrase = [<span class="string">'-'</span> phrase];
+phrase = strrep(phrase,<span class="string">' '</span>,<span class="string">'+-'</span>);
+phrase = strrep(phrase,<span class="string">'.'</span>,<span class="string">'+.'</span>);
+
+seq_size = length(phrase);
+state_seq = zeros(1,seq_size);
+
+<span class="keyword">for</span> i = 1: seq_size
+    <span class="keyword">if</span>(phrase(i) == <span class="string">'-'</span>)
+        state = 1;
+    <span class="keyword">elseif</span>(phrase(i) == <span class="string">'+'</span>)
+        state = 28;
+    <span class="keyword">else</span>
+        state = find(strcmp(phrase(i), dict(:,2)),1);
+    <span class="keyword">end</span>
+    state_seq(1,i) = state;
+<span class="keyword">end</span>
+
+likehood = 1;
+likehood_log = 0;
+<span class="keyword">for</span> i = 2:seq_size
+    likehood = likehood * trans_matrix(state_seq(i-1),state_seq(i) ); 
+    likehood_log = likehood_log + log(trans_matrix(state_seq(i-1),state_seq(i) ));
+<span class="keyword">end</span>
+
+
+</pre><pre class="codeinput">[dict, trans_matrix_en] = modifie_mat_dic(corresp, bigramenglish);
+
+[dict, trans_matrix_fr] = modifie_mat_dic(corresp, bigramfrancais);
+
+[pro_en, pro_log_en] = calc_vraisemblance(<span class="string">'to be or not to be.'</span>, trans_matrix_en, dict)
+[pro_fr, pro_log_fr] = calc_vraisemblance(<span class="string">'to be or not to be.'</span>, trans_matrix_fr, dict)
+
+display(strcat([<span class="string">'The likehood for the English is '</span> num2str(pro_en) ]));
+display(strcat([<span class="string">'The likehood for the French is '</span> num2str(pro_fr) ]));
+</pre><pre class="codeoutput">
+pro_en =
+
+   8.1129e-20
+
+
+pro_log_en =
+
+  -43.9582
+
+
+pro_fr =
+
+   5.9602e-30
+
+
+pro_log_fr =
+
+  -67.2924
+
+The likehood for the English is 8.1129e-20
+The likehood for the French is 5.9602e-30
+</pre><p>D'apr&egrave;s la vraisemblance, ce phrase est plit&ocirc;t anglais.</p><pre class="codeinput">[dict, trans_matrix_en] = modifie_mat_dic(corresp, bigramenglish);
+
+[dict, trans_matrix_fr] = modifie_mat_dic(corresp, bigramfrancais);
+
+[pro_en, pro_log_en] = calc_vraisemblance(<span class="string">'etre ou ne pas etre.'</span>, trans_matrix_en, dict)
+[pro_fr, pro_log_fr] = calc_vraisemblance(<span class="string">'etre ou ne pas etre.'</span>, trans_matrix_fr, dict)
+
+display(strcat([<span class="string">'The likehood for the English is '</span> num2str(pro_en) ]));
+display(strcat([<span class="string">'The likehood for the French is '</span> num2str(pro_fr) ]));
+</pre><pre class="codeoutput">
+pro_en =
+
+   4.4623e-24
+
+
+pro_log_en =
+
+  -53.7664
+
+
+pro_fr =
+
+   1.1457e-19
+
+
+pro_log_fr =
+
+  -43.6131
+
+The likehood for the English is 4.4623e-24
+The likehood for the French is 1.1457e-19
+</pre><p>D'apr&egrave;s la vraisemblance, ce phrase est plit&ocirc;t anglais.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Travaux Pratique - Chaines de Morkov
+% ZHU Fangda
+
+%% 2. Chaîne de Markov
+
+
+
+eval('correspondance')
+
+%% 2.a. Matrice de transitions
+load 'bigramenglish'
+load 'bigramfrancais'
+
+%%
+% La premier ligne correspond aux propabilités de l'occurence au début de mot 
+% pour chaque lettre. La dernier colonnes correspond aux probabilités de l'occurence à la
+% fin du mot pour chaque lettre de l'alphabet.
+% On peut afficher la transition la plus fréquente depuis chaque lettre avec méthode ci-dessous:
+
+[value, index] = max(bigramenglish');
+
+a = corresp(index + 28);
+
+%%
+% La resultat indique que la lettre 't' est le plus fréquente lettre comme
+% la premier lettre du mot. 
+
+display(a)
+
+
+%%  2.b Générer un mot
+% 
+% L'implémentation du fonction *etat_suivant*
+% 
+% <include>etat_suivant.m</include>
+% 
+% L'implémentation du fonction *genere_stat_seq*
+% 
+% <include>genere_state_seq.m</include>
+% 
+% L'implémentation du fonction *display_seq*
+% 
+% <include>display_seq.m</include>
+% 
+
+a = genere_state_seq(bigramenglish);
+seq = display_seq(a, corresp);
+
+%%
+%
+bar(1:28,bigramenglish(5,:));
+
+%% 
+% On peut imagine que l'on jette un boule dans le zone blue aléatoirement, 
+% si on jette dans le zone de lettre a, alore on reprise 'a' comme l'état
+% suivant. Comme la proportion surface de la zone de 'a' sur la surface total
+% bien correspond à son probabilité. Avec cette methode, on peut tranformer
+% la distribution uniformément à la distribution décris par la matrix.
+
+%% 3. Générer une phrase
+%
+% L'implémentation du fonction *modifie_mat_dic*
+% 
+% <include>modifie_mat_dic.m</include>
+% 
+[dict, trans_matrix] = modifie_mat_dic(corresp, bigramenglish);
+a = genere_state_seq(trans_matrix);
+seq = display_seq(a, dict);
+
+
+%% 4. Reconnaissance de la langue
+% 
+% L'implémentation du fonction *modifie_mat_dic*
+% 
+% <include>calc_vraisemblance.m</include>
+% 
+
+[dict, trans_matrix_en] = modifie_mat_dic(corresp, bigramenglish);
+
+[dict, trans_matrix_fr] = modifie_mat_dic(corresp, bigramfrancais);
+
+[pro_en, pro_log_en] = calc_vraisemblance('to be or not to be.', trans_matrix_en, dict)
+[pro_fr, pro_log_fr] = calc_vraisemblance('to be or not to be.', trans_matrix_fr, dict)
+
+display(strcat(['The likehood for the English is ' num2str(pro_en) ]));
+display(strcat(['The likehood for the French is ' num2str(pro_fr) ]));
+
+%%
+% D'après la vraisemblance, ce phrase est plitôt anglais.
+%%
+
+[dict, trans_matrix_en] = modifie_mat_dic(corresp, bigramenglish);
+
+[dict, trans_matrix_fr] = modifie_mat_dic(corresp, bigramfrancais);
+
+[pro_en, pro_log_en] = calc_vraisemblance('etre ou ne pas etre.', trans_matrix_en, dict)
+[pro_fr, pro_log_fr] = calc_vraisemblance('etre ou ne pas etre.', trans_matrix_fr, dict)
+
+display(strcat(['The likehood for the English is ' num2str(pro_en) ]));
+display(strcat(['The likehood for the French is ' num2str(pro_fr) ]));
+
+%%
+% D'après la vraisemblance, ce phrase est plitôt anglais.
+
+##### SOURCE END #####
+--></body></html>
