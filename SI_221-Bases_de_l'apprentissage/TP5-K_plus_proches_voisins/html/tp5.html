@@ -1,0 +1,353 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>TP kppv : k plus proches voisins</title><meta name="generator" content="MATLAB 9.0"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-10-30"><meta name="DC.source" content="tp5.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>TP kppv : k plus proches voisins</h1><!--introduction--><p>Author : ZHU Fangda</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Les donn&eacute;es</a></li><li><a href="#3">3 Classement par kpp</a></li><li><a href="#5">4.1 1-ppv avec prototype</a></li></ul></div><h2>Les donn&eacute;es<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>;
+load <span class="string">data_app</span>;
+X_train = x; y_train = S;
+load <span class="string">data_test</span>;
+X_test = x; y_test = S;
+
+m = 16;
+im = reshape(x(m,:), 28, 28)';
+image(255*ones(28,28) - im);
+colormap(gray);
+S(m);
+
+
+
+figure()
+hist(Sa)
+title(<span class="string">'Distribution of class in the training set'</span>)
+
+figure()
+hist(S_val)
+title(<span class="string">'Distribution of class in the test set'</span>)
+</pre><img vspace="5" hspace="5" src="tp5_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="tp5_02.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="tp5_03.png" style="width:560px;height:420px;" alt=""> <p>D'apr&egrave;s la figure ci-dessous, on peut constacte que les examples sont pr&egrave;sque &eacute;quir&eacute;parties suivant les classes.</p><h2>3 Classement par kpp<a name="3"></a></h2><p>On impl&eacute;mente l'algorithme de kpp comme ci-dessous:</p><pre class="language-matlab">
+<span class="keyword">function</span> [ y_test ] = kpp_predicate( X_test , X_train, y_train, k)
+<span class="comment">% Returns the result of the kpp</span>
+<span class="comment">%   Input :</span>
+<span class="comment">%       X_test : the test vector</span>
+<span class="comment">%       X_train : the training set </span>
+<span class="comment">%       y_train : the class of each sample in the training set</span>
+<span class="comment">%       k : number of the neighbor</span>
+<span class="comment">%   Output :</span>
+<span class="comment">%       y_test : the result of predicate for the x_test</span>
+<span class="comment">%       </span>
+
+    train_row = size(X_train,1); 
+    test_row = size(X_test,1);
+    y_test = zeros(test_row,1);
+
+
+    <span class="keyword">for</span> i = 1:test_row
+        x_matrix = repmat(X_test(i, :), train_row, 1);
+        dist = sqrt(sum((x_matrix - X_train).^2,2));
+        [B, I] = mink(dist, k);
+        y_test(i,1) = mode(y_train(I));
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+</pre><pre class="language-matlab">
+<span class="keyword">function</span> [ B I ] = mink( vector, k )
+<span class="comment">% Returns the k largest values and their index</span>
+<span class="comment">%   Input :</span>
+<span class="comment">%       list : a vector</span>
+<span class="comment">%       K : the number of the largest element</span>
+<span class="comment">%   Output :</span>
+<span class="comment">%       B : the K largest value in the vector</span>
+<span class="comment">%       I : the index of the K leargest</span>
+
+    [dis, index] = sort(vector);
+    B = dis(1:k);
+    I = index(1:k);
+
+<span class="keyword">end</span>
+
+
+</pre><pre class="language-matlab">
+<span class="keyword">function</span> [ conf_max ] = confusion_matrix( y_val, y_predicate)
+<span class="comment">% Get confusion matrix</span>
+
+nb = 10;
+nb_sample = size(y_val,1);
+conf_max = zeros(nb, nb);
+    <span class="keyword">for</span> i = 1:nb_sample
+        conf_max(y_val(i), y_predicate(i)) = conf_max(y_val(i), y_predicate(i)) + 1;
+    <span class="keyword">end</span>
+    
+<span class="keyword">end</span>
+
+
+</pre><pre class="language-matlab">
+<span class="keyword">function</span> [  ] = show_confusion_matrix( matrix, k )
+<span class="comment">% Visualiez the confusion matrix</span>
+    norm = repmat(sum(matrix, 2),1,10);
+    figure();
+    imshow(1 - matrix ./ norm,<span class="string">'InitialMagnification'</span>,<span class="string">'fit'</span>);
+    title( strcat([<span class="string">'The confusion matrix for the k-ppv avec k='</span> ,  int2str(k)]) );    
+    colormap(<span class="string">'gray'</span>);
+    axis <span class="string">on</span>;
+<span class="keyword">end</span>
+
+
+</pre><pre class="codeinput">k = 4;
+<span class="keyword">for</span> k = [1,3,4,5]
+    y_pre = kpp_predicate(X_test, X_train, y_train, k);
+    error_score = 1 - sum(y_test == y_pre) / size(y_test,1);
+    str = sprintf(<span class="string">'K = %d \t error score = %.2f'</span>, i, error_score);
+    display(str);
+    display(conf_matrix);
+    conf_matrix = confusion_matrix(y_test, y_pre);
+    show_confusion_matrix(conf_matrix, k)
+
+<span class="keyword">end</span>
+</pre><pre class="codeoutput">
+str =
+
+K = 10 	 error score = 0.15
+
+
+conf_matrix =
+
+    38     0     0     0     0     0     0     0     0     0
+     2    23     0     0     1     0     1     0     1     0
+     0     2    17     0     6     0     0     1     2     0
+     3     1     0    29     0     1     0     0     4     0
+     0     0     2     1    20     0     0     0     0     1
+     4     0     0     0     0    21     0     0     0     0
+     0     0     0     2     2     0    29     0     1     0
+     1     1     2     2     1     1     0    22     1     0
+     0     0     1     0     0     0     1     0    30     0
+     0     0     0     1     0     0     0     1     0    20
+
+
+str =
+
+K = 10 	 error score = 0.18
+
+
+conf_matrix =
+
+    38     0     0     0     0     0     0     0     0     0
+     2    23     0     1     0     0     1     1     0     0
+     0     3    17     0     5     0     0     1     2     0
+     1     0     0    25     0     2     0     1     9     0
+     0     0     2     0    18     1     0     1     1     1
+     0     0     0     0     0    25     0     0     0     0
+     0     0     0     0     2     0    31     0     1     0
+     1     0     1     1     0     1     0    26     1     0
+     0     0     0     2     0     0     1     0    29     0
+     0     0     0     0     0     0     0     0     0    22
+
+
+str =
+
+K = 10 	 error score = 0.18
+
+
+conf_matrix =
+
+    38     0     0     0     0     0     0     0     0     0
+     2    21     0     0     1     0     1     0     1     2
+     0     4    15     0     7     0     0     0     2     0
+     3     1     0    27     0     2     0     0     5     0
+     0     0     3     0    20     1     0     0     0     0
+     2     0     0     0     0    23     0     0     0     0
+     0     0     1     3     1     0    28     0     1     0
+     1     1     1     0     1     1     0    24     2     0
+     0     0     1     0     0     0     1     0    30     0
+     0     0     0     0     3     0     0     0     0    19
+
+
+str =
+
+K = 10 	 error score = 0.17
+
+
+conf_matrix =
+
+    38     0     0     0     0     0     0     0     0     0
+     3    22     0     1     0     0     1     0     0     1
+     0     1    18     0     6     0     0     1     2     0
+     2     1     0    29     0     2     0     0     4     0
+     0     0     3     1    18     1     0     0     0     1
+     4     0     0     0     0    21     0     0     0     0
+     0     0     0     2     2     0    29     0     1     0
+     1     1     2     0     1     1     0    24     1     0
+     0     0     1     1     0     0     1     0    29     0
+     0     0     1     0     2     0     0     0     0    19
+
+</pre><img vspace="5" hspace="5" src="tp5_04.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="tp5_05.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="tp5_06.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="tp5_07.png" style="width:560px;height:420px;" alt=""> <p>D'apr&egrave;s la matrix de confusion, on peut trouver que la plus part des image sont bien class&eacute;e.</p><h2>4.1 1-ppv avec prototype<a name="5"></a></h2><pre class="codeinput">prototype = zeros(10,784);
+y_proto = zeros(10,1);
+<span class="keyword">for</span> i = 1:10
+    y_proto(i) = i;
+    prototype(i,:) = mean(X_train(y_train == i, :),1);
+<span class="keyword">end</span>
+
+y_pre = kpp_predicate(X_test, prototype, y_proto, 1);
+
+error_score = 1 - sum(y_test == y_pre) / size(y_test,1)
+
+conf_mat_proto = confusion_matrix(y_test, y_pre);
+title(<span class="string">'The confusion matrix for the 1-ppv avec prototype'</span>)
+</pre><pre class="codeoutput">
+error_score =
+
+    0.2633
+
+</pre><img vspace="5" hspace="5" src="tp5_08.png" style="width:560px;height:420px;" alt=""> <p>D'apr&egrave;s la r&eacute;sultat ci-dessus, on constate que le taux de erreur est augement&eacute;. Mais le resultat ce qu'on obtiens avec prototype est assez bien. Cette methode fais mois de calcules. Avec cette m&eacute;thode, une fois on obtiens le model, le model ne enregistre que le prototype. Du coupe, la complexit&eacute; du temps et la compl&egrave;xit&eacute; de l'&egrave;sp&egrave;re est mieux que la model obtenus en 3.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% TP kppv : k plus proches voisins
+% Author : ZHU Fangda
+
+%% Les données
+%
+
+close all;
+load data_app;
+X_train = x; y_train = S;
+load data_test;
+X_test = x; y_test = S;
+
+m = 16;
+im = reshape(x(m,:), 28, 28)';
+image(255*ones(28,28) - im);
+colormap(gray);
+S(m);
+
+
+
+figure()
+hist(Sa)
+title('Distribution of class in the training set')
+
+figure()
+hist(S_val)
+title('Distribution of class in the test set')
+
+%%
+% D'après la figure ci-dessous, on peut constacte que les examples sont
+% prèsque équiréparties suivant les classes.
+
+%% 3 Classement par kpp
+% On implémente l'algorithme de kpp comme ci-dessous:
+% 
+% <include>kpp_predicate.m</include>
+%
+% <include>mink.m</include>
+%
+%
+% <include>confusion_matrix.m</include>
+%
+%
+% <include>show_confusion_matrix.m</include>
+%
+k = 4;
+for k = [1,3,4,5]
+    y_pre = kpp_predicate(X_test, X_train, y_train, k);
+    error_score = 1 - sum(y_test == y_pre) / size(y_test,1);
+    str = sprintf('K = %d \t error score = %.2f', i, error_score);
+    display(str);
+    display(conf_matrix);
+    conf_matrix = confusion_matrix(y_test, y_pre);
+    show_confusion_matrix(conf_matrix, k)
+    
+end
+%%
+% D'après la matrix de confusion, on peut trouver que la plus part des
+% image sont bien classée.
+
+%% 4.1 1-ppv avec prototype
+% 
+%
+
+prototype = zeros(10,784);
+y_proto = zeros(10,1);
+for i = 1:10
+    y_proto(i) = i;
+    prototype(i,:) = mean(X_train(y_train == i, :),1);
+end
+
+y_pre = kpp_predicate(X_test, prototype, y_proto, 1);
+
+error_score = 1 - sum(y_test == y_pre) / size(y_test,1)
+
+conf_mat_proto = confusion_matrix(y_test, y_pre);
+title('The confusion matrix for the 1-ppv avec prototype')
+
+%%
+% D'après la résultat ci-dessus, on constate que le taux de erreur est
+% augementé. Mais le resultat ce qu'on obtiens avec prototype est assez
+% bien. Cette methode fais mois de calcules. Avec cette méthode, une fois on 
+% obtiens le model, le model ne enregistre que le prototype. Du coupe, la 
+% complexité du temps et la complèxité de l'èspère est mieux que la model obtenus en 3. 
+
+##### SOURCE END #####
+--></body></html>
