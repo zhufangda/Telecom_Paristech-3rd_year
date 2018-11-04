@@ -1,4 +1,5 @@
 *.mp3
+*.wav
 *.zip
 *.ipynb_checkpoints
 *.py[co]
