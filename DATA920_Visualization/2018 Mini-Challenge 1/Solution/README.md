@@ -5,8 +5,11 @@ Author: HOURS Henri, HALAL Taha , ZHU Fangda, XIANG Yu
 
 - [20181011_VAST1_FITH_1.0.ipynb](20181012_VAST1_FITH_1.0.ipynb) - The notebook for the first assignment  
 
+- [Assignment1_Report](Assignment1_Report.ipynb) - The report for the first assignment
+
 - [vast.py](vast.py) - The librairy containing some utilities functons
 
 - [Allbirds_since2006.gif](Allbirds_since2006.gif) - The animation showing the density of all birds
 
 - [BluePipit_since2006.gif](BluePipit_since2006.gif) - The animation showing the density for the Blue-pipit
+- 
