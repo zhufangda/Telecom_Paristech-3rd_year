@@ -1,0 +1,417 @@
+{
+    "directed": false,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "category": "Bent-beak Riffraff",
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.24841457541299852,
+            "id": 0
+        },
+        {
+            "category": "Blue-collared Zipper",
+            "degree": 9,
+            "parity": 0,
+            "katz": 0.30160794594201196,
+            "id": 1
+        },
+        {
+            "category": "Bombadil",
+            "degree": 8,
+            "parity": 1,
+            "katz": 0.26615166097054244,
+            "id": 2
+        },
+        {
+            "category": "Canadian Cootamum",
+            "degree": 8,
+            "parity": 1,
+            "katz": 0.30112800782753596,
+            "id": 4
+        },
+        {
+            "category": "Lesser Birchbeere",
+            "degree": 9,
+            "parity": 0,
+            "katz": 0.3184342003088084,
+            "id": 9
+        },
+        {
+            "category": "Orange Pine Plover",
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.1965977387462367,
+            "id": 10
+        },
+        {
+            "category": "Purple Tooting Tout",
+            "degree": 8,
+            "parity": 1,
+            "katz": 0.30112800782753596,
+            "id": 13
+        },
+        {
+            "category": "Carries Champagne Pipit",
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.13571548003852757,
+            "id": 5
+        },
+        {
+            "category": "Eastern Corn Skeet",
+            "degree": 7,
+            "parity": 0,
+            "katz": 0.2716554652330143,
+            "id": 7
+        },
+        {
+            "category": "Ordinary Snape",
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.24834199350919137,
+            "id": 11
+        },
+        {
+            "category": "Queenscoat",
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.13571548003852757,
+            "id": 15
+        },
+        {
+            "category": "Rose-crested Blue Pipit",
+            "degree": 7,
+            "parity": 0,
+            "katz": 0.256448272356488,
+            "id": 16
+        },
+        {
+            "category": "Broad-winged Jojo",
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.19821020125526093,
+            "id": 3
+        },
+        {
+            "category": "Darkwing Sparrow",
+            "degree": 4,
+            "parity": 1,
+            "katz": 0.190368169952434,
+            "id": 6
+        },
+        {
+            "category": "Green-tipped Scarlet Pipit",
+            "degree": 1,
+            "parity": 0,
+            "katz": 0.10652503720578788,
+            "id": 8
+        },
+        {
+            "category": "Qax",
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.19821020125526093,
+            "id": 14
+        },
+        {
+            "category": "Pinkfinch",
+            "degree": 5,
+            "parity": 0,
+            "katz": 0.17401460246285175,
+            "id": 12
+        },
+        {
+            "category": "Scrawny Jay",
+            "degree": 5,
+            "parity": 0,
+            "katz": 0.17401460246285175,
+            "id": 17
+        },
+        {
+            "category": "Vermillion Trillian",
+            "degree": 5,
+            "parity": 0,
+            "katz": 0.17401460246285175,
+            "id": 18
+        }
+    ],
+    "links": [
+        {
+            "weight": 27.797174428825812,
+            "source": 0,
+            "target": 1
+        },
+        {
+            "weight": 31.79740785789636,
+            "source": 0,
+            "target": 2
+        },
+        {
+            "weight": 25.47002648215843,
+            "source": 0,
+            "target": 4
+        },
+        {
+            "weight": 26.86841530948398,
+            "source": 0,
+            "target": 9
+        },
+        {
+            "weight": 25.012332678845098,
+            "source": 0,
+            "target": 10
+        },
+        {
+            "weight": 29.32253689109038,
+            "source": 0,
+            "target": 13
+        },
+        {
+            "weight": 27.99113871068242,
+            "source": 1,
+            "target": 4
+        },
+        {
+            "weight": 29.095449340062643,
+            "source": 1,
+            "target": 5
+        },
+        {
+            "weight": 30.753569465382697,
+            "source": 1,
+            "target": 7
+        },
+        {
+            "weight": 37.38112932199252,
+            "source": 1,
+            "target": 9
+        },
+        {
+            "weight": 30.147310567093882,
+            "source": 1,
+            "target": 11
+        },
+        {
+            "weight": 32.474443532488365,
+            "source": 1,
+            "target": 13
+        },
+        {
+            "weight": 26.74143004787274,
+            "source": 1,
+            "target": 15
+        },
+        {
+            "weight": 30.476461856467424,
+            "source": 1,
+            "target": 16
+        },
+        {
+            "weight": 27.98054106143867,
+            "source": 2,
+            "target": 3
+        },
+        {
+            "weight": 33.614482599753075,
+            "source": 2,
+            "target": 4
+        },
+        {
+            "weight": 25.5063681153445,
+            "source": 2,
+            "target": 6
+        },
+        {
+            "weight": 26.583908769212456,
+            "source": 2,
+            "target": 8
+        },
+        {
+            "weight": 25.613588807929915,
+            "source": 2,
+            "target": 9
+        },
+        {
+            "weight": 33.46903805533714,
+            "source": 2,
+            "target": 13
+        },
+        {
+            "weight": 25.112094751251632,
+            "source": 2,
+            "target": 14
+        },
+        {
+            "weight": 32.33875793725464,
+            "source": 4,
+            "target": 7
+        },
+        {
+            "weight": 35.29428926777109,
+            "source": 4,
+            "target": 9
+        },
+        {
+            "weight": 31.00048242395617,
+            "source": 4,
+            "target": 11
+        },
+        {
+            "weight": 36.82729108715563,
+            "source": 4,
+            "target": 13
+        },
+        {
+            "weight": 26.179409838844975,
+            "source": 4,
+            "target": 16
+        },
+        {
+            "weight": 26.65649089381388,
+            "source": 9,
+            "target": 6
+        },
+        {
+            "weight": 39.29888094180886,
+            "source": 9,
+            "target": 7
+        },
+        {
+            "weight": 38.652906937502024,
+            "source": 9,
+            "target": 11
+        },
+        {
+            "weight": 33.084451545778336,
+            "source": 9,
+            "target": 13
+        },
+        {
+            "weight": 28.026267913553042,
+            "source": 9,
+            "target": 16
+        },
+        {
+            "weight": 26.819973184545603,
+            "source": 10,
+            "target": 3
+        },
+        {
+            "weight": 31.101831595780766,
+            "source": 10,
+            "target": 12
+        },
+        {
+            "weight": 32.322173114535104,
+            "source": 10,
+            "target": 14
+        },
+        {
+            "weight": 28.369363288195302,
+            "source": 10,
+            "target": 17
+        },
+        {
+            "weight": 39.41228469984536,
+            "source": 10,
+            "target": 18
+        },
+        {
+            "weight": 29.668044588378123,
+            "source": 13,
+            "target": 7
+        },
+        {
+            "weight": 27.12734540992612,
+            "source": 13,
+            "target": 11
+        },
+        {
+            "weight": 35.18721923297271,
+            "source": 13,
+            "target": 16
+        },
+        {
+            "weight": 32.82360428066795,
+            "source": 5,
+            "target": 16
+        },
+        {
+            "weight": 25.110920262314224,
+            "source": 7,
+            "target": 6
+        },
+        {
+            "weight": 39.555508326133136,
+            "source": 7,
+            "target": 11
+        },
+        {
+            "weight": 27.56199276352612,
+            "source": 7,
+            "target": 16
+        },
+        {
+            "weight": 31.44834223500213,
+            "source": 11,
+            "target": 6
+        },
+        {
+            "weight": 26.322400587190316,
+            "source": 15,
+            "target": 16
+        },
+        {
+            "weight": 32.02185785555662,
+            "source": 3,
+            "target": 12
+        },
+        {
+            "weight": 33.36563057051447,
+            "source": 3,
+            "target": 14
+        },
+        {
+            "weight": 25.417675514092167,
+            "source": 3,
+            "target": 17
+        },
+        {
+            "weight": 29.577264470832077,
+            "source": 3,
+            "target": 18
+        },
+        {
+            "weight": 29.521398299190835,
+            "source": 14,
+            "target": 12
+        },
+        {
+            "weight": 28.769321827309994,
+            "source": 14,
+            "target": 17
+        },
+        {
+            "weight": 36.01708067127349,
+            "source": 14,
+            "target": 18
+        },
+        {
+            "weight": 36.70737902682842,
+            "source": 12,
+            "target": 17
+        },
+        {
+            "weight": 30.240896766985486,
+            "source": 12,
+            "target": 18
+        },
+        {
+            "weight": 29.45109512822897,
+            "source": 17,
+            "target": 18
+        }
+    ]
+}
