@@ -1,0 +1,915 @@
+{
+    "directed": false,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "category": "Bent-beak Riffraff",
+            "tip": "Bent-beak Riffraff",
+            "isKasios": 0,
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.1931975703677379,
+            "id": 0
+        },
+        {
+            "category": "Blue-collared Zipper",
+            "tip": "Blue-collared Zipper",
+            "isKasios": 0,
+            "degree": 10,
+            "parity": 1,
+            "katz": 0.2590813157290523,
+            "id": 1
+        },
+        {
+            "category": "Bombadil",
+            "tip": "Bombadil",
+            "isKasios": 0,
+            "degree": 12,
+            "parity": 1,
+            "katz": 0.23137821733966807,
+            "id": 2
+        },
+        {
+            "category": "Broad-winged Jojo",
+            "tip": "Broad-winged Jojo",
+            "isKasios": 0,
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.13270535642598752,
+            "id": 3
+        },
+        {
+            "category": "Canadian Cootamum",
+            "tip": "Canadian Cootamum",
+            "isKasios": 0,
+            "degree": 10,
+            "parity": 1,
+            "katz": 0.2772814988285849,
+            "id": 4
+        },
+        {
+            "category": "Carries Champagne Pipit",
+            "tip": "Carries Champagne Pipit",
+            "isKasios": 0,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.09270442299331896,
+            "id": 5
+        },
+        {
+            "category": "Darkwing Sparrow",
+            "tip": "Darkwing Sparrow",
+            "isKasios": 0,
+            "degree": 8,
+            "parity": 1,
+            "katz": 0.19392313978827727,
+            "id": 6
+        },
+        {
+            "category": "Eastern Corn Skeet",
+            "tip": "Eastern Corn Skeet",
+            "isKasios": 0,
+            "degree": 11,
+            "parity": 0,
+            "katz": 0.2856396489895728,
+            "id": 7
+        },
+        {
+            "category": "Green-tipped Scarlet Pipit",
+            "tip": "Green-tipped Scarlet Pipit",
+            "isKasios": 0,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.06961925187471041,
+            "id": 8
+        },
+        {
+            "category": "Lesser Birchbeere",
+            "tip": "Lesser Birchbeere",
+            "isKasios": 0,
+            "degree": 12,
+            "parity": 1,
+            "katz": 0.3143568223317064,
+            "id": 9
+        },
+        {
+            "category": "Orange Pine Plover",
+            "tip": "Orange Pine Plover",
+            "isKasios": 0,
+            "degree": 13,
+            "parity": 0,
+            "katz": 0.18490170506336148,
+            "id": 10
+        },
+        {
+            "category": "Ordinary Snape",
+            "tip": "Ordinary Snape",
+            "isKasios": 0,
+            "degree": 10,
+            "parity": 1,
+            "katz": 0.2627065688122766,
+            "id": 11
+        },
+        {
+            "category": "Pinkfinch",
+            "tip": "Pinkfinch",
+            "isKasios": 0,
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.12179109285874792,
+            "id": 12
+        },
+        {
+            "category": "Purple Tooting Tout",
+            "tip": "Purple Tooting Tout",
+            "isKasios": 0,
+            "degree": 9,
+            "parity": 0,
+            "katz": 0.26637643046786896,
+            "id": 13
+        },
+        {
+            "category": "Qax",
+            "tip": "Qax",
+            "isKasios": 0,
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.13270535642598752,
+            "id": 14
+        },
+        {
+            "category": "Queenscoat",
+            "tip": "Queenscoat",
+            "isKasios": 0,
+            "degree": 6,
+            "parity": 1,
+            "katz": 0.1332655709508323,
+            "id": 15
+        },
+        {
+            "category": "Rose-crested Blue Pipit",
+            "tip": "Rose-crested Blue Pipit",
+            "isKasios": 0,
+            "degree": 12,
+            "parity": 1,
+            "katz": 0.2693629462113206,
+            "id": 16
+        },
+        {
+            "category": "Scrawny Jay",
+            "tip": "Scrawny Jay",
+            "isKasios": 0,
+            "degree": 7,
+            "parity": 0,
+            "katz": 0.1306385607333464,
+            "id": 17
+        },
+        {
+            "category": "Vermillion Trillian",
+            "tip": "Vermillion Trillian",
+            "isKasios": 0,
+            "degree": 7,
+            "parity": 0,
+            "katz": 0.1270386462315834,
+            "id": 18
+        },
+        {
+            "category": "K1",
+            "tip": "P1: 0.23 - Orange Pine Plover\nP2: 0.16 - Rose-crested Blue Pipit\nP3: 0.11 - Vermillion Trillian\nP4: 0.09 - Bombadil\nP5: 0.08 - Lesser Birchbeere\n",
+            "isKasios": 1,
+            "degree": 3,
+            "parity": 0,
+            "katz": 0.09799033031347815,
+            "id": 19
+        },
+        {
+            "category": "K2",
+            "tip": "P1: 0.18 - Rose-crested Blue Pipit\nP2: 0.17 - Ordinary Snape\nP3: 0.15 - Eastern Corn Skeet\nP4: 0.12 - Lesser Birchbeere\nP5: 0.07 - Purple Tooting Tout\n",
+            "isKasios": 1,
+            "degree": 4,
+            "parity": 1,
+            "katz": 0.15306657723755374,
+            "id": 20
+        },
+        {
+            "category": "K3",
+            "tip": "P1: 0.16 - Orange Pine Plover\nP2: 0.16 - Bombadil\nP3: 0.09 - Ordinary Snape\nP4: 0.09 - Darkwing Sparrow\nP5: 0.08 - Rose-crested Blue Pipit\n",
+            "isKasios": 1,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.08148799619928564,
+            "id": 21
+        },
+        {
+            "category": "K4",
+            "tip": "P1: 0.24 - Bombadil\nP2: 0.18 - Darkwing Sparrow\nP3: 0.08 - Lesser Birchbeere\nP4: 0.07 - Green-tipped Scarlet Pipit\nP5: 0.06 - Rose-crested Blue Pipit\n",
+            "isKasios": 1,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.08239013706734365,
+            "id": 22
+        },
+        {
+            "category": "K5",
+            "tip": "P1: 0.26 - Orange Pine Plover\nP2: 0.15 - Blue-collared Zipper\nP3: 0.13 - Scrawny Jay\nP4: 0.09 - Queenscoat\nP5: 0.07 - Rose-crested Blue Pipit\n",
+            "isKasios": 1,
+            "degree": 3,
+            "parity": 0,
+            "katz": 0.09732215876521388,
+            "id": 23
+        },
+        {
+            "category": "K6",
+            "tip": "P1: 0.28 - Green-tipped Scarlet Pipit\nP2: 0.25 - Darkwing Sparrow\nP3: 0.09 - Bombadil\nP4: 0.07 - Broad-winged Jojo\nP5: 0.06 - Lesser Birchbeere\n",
+            "isKasios": 1,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.06621424514181942,
+            "id": 24
+        },
+        {
+            "category": "K7",
+            "tip": "P1: 0.19 - Scrawny Jay\nP2: 0.17 - Orange Pine Plover\nP3: 0.12 - Canadian Cootamum\nP4: 0.11 - Pinkfinch\nP5: 0.1 - Eastern Corn Skeet\n",
+            "isKasios": 1,
+            "degree": 4,
+            "parity": 1,
+            "katz": 0.11132128449236739,
+            "id": 25
+        },
+        {
+            "category": "K8",
+            "tip": "P1: 0.16 - Rose-crested Blue Pipit\nP2: 0.16 - Ordinary Snape\nP3: 0.14 - Eastern Corn Skeet\nP4: 0.12 - Lesser Birchbeere\nP5: 0.1 - Canadian Cootamum\n",
+            "isKasios": 1,
+            "degree": 5,
+            "parity": 0,
+            "katz": 0.18079471909250636,
+            "id": 26
+        },
+        {
+            "category": "K9",
+            "tip": "P1: 0.24 - Rose-crested Blue Pipit\nP2: 0.18 - Eastern Corn Skeet\nP3: 0.14 - Queenscoat\nP4: 0.09 - Ordinary Snape\nP5: 0.07 - Purple Tooting Tout\n",
+            "isKasios": 1,
+            "degree": 3,
+            "parity": 0,
+            "katz": 0.10868680954725637,
+            "id": 27
+        },
+        {
+            "category": "K10",
+            "tip": "P1: 0.64 - Orange Pine Plover\nP2: 0.14 - Vermillion Trillian\nP3: 0.04 - Lesser Birchbeere\nP4: 0.03 - Qax\nP5: 0.03 - Green-tipped Scarlet Pipit\n",
+            "isKasios": 1,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.07105404322964136,
+            "id": 28
+        },
+        {
+            "category": "K11",
+            "tip": "P1: 0.35 - Queenscoat\nP2: 0.11 - Bombadil\nP3: 0.1 - Rose-crested Blue Pipit\nP4: 0.07 - Lesser Birchbeere\nP5: 0.05 - Bent-beak Riffraff\n",
+            "isKasios": 1,
+            "degree": 2,
+            "parity": 1,
+            "katz": 0.0763243824134063,
+            "id": 29
+        },
+        {
+            "category": "K12",
+            "tip": "P1: 0.4 - Orange Pine Plover\nP2: 0.1 - Broad-winged Jojo\nP3: 0.08 - Vermillion Trillian\nP4: 0.07 - Rose-crested Blue Pipit\nP5: 0.06 - Bombadil\n",
+            "isKasios": 1,
+            "degree": 1,
+            "parity": 0,
+            "katz": 0.05835017983331915,
+            "id": 30
+        },
+        {
+            "category": "K13",
+            "tip": "P1: 0.19 - Rose-crested Blue Pipit\nP2: 0.17 - Ordinary Snape\nP3: 0.1 - Queenscoat\nP4: 0.1 - Darkwing Sparrow\nP5: 0.09 - Purple Tooting Tout\n",
+            "isKasios": 1,
+            "degree": 4,
+            "parity": 1,
+            "katz": 0.1257858113012468,
+            "id": 31
+        },
+        {
+            "category": "K14",
+            "tip": "P1: 0.27 - Darkwing Sparrow\nP2: 0.2 - Lesser Birchbeere\nP3: 0.13 - Purple Tooting Tout\nP4: 0.13 - Eastern Corn Skeet\nP5: 0.11 - Ordinary Snape\n",
+            "isKasios": 1,
+            "degree": 5,
+            "parity": 0,
+            "katz": 0.17216023438728664,
+            "id": 32
+        },
+        {
+            "category": "K15",
+            "tip": "P1: 0.15 - Queenscoat\nP2: 0.14 - Orange Pine Plover\nP3: 0.11 - Bombadil\nP4: 0.08 - Qax\nP5: 0.06 - Vermillion Trillian\n",
+            "isKasios": 1,
+            "degree": 3,
+            "parity": 0,
+            "katz": 0.09481455054806585,
+            "id": 33
+        }
+    ],
+    "links": [
+        {
+            "weight": 2.7971744288258105,
+            "stype": 0,
+            "source": 0,
+            "target": 1
+        },
+        {
+            "weight": 6.797407857896365,
+            "stype": 0,
+            "source": 0,
+            "target": 2
+        },
+        {
+            "weight": 0.47002648215842546,
+            "stype": 0,
+            "source": 0,
+            "target": 4
+        },
+        {
+            "weight": 1.8684153094839728,
+            "stype": 0,
+            "source": 0,
+            "target": 9
+        },
+        {
+            "weight": 0.012332678845095035,
+            "stype": 0,
+            "source": 0,
+            "target": 10
+        },
+        {
+            "weight": 4.322536891090378,
+            "stype": 0,
+            "source": 0,
+            "target": 13
+        },
+        {
+            "weight": 2.991138710682417,
+            "stype": 0,
+            "source": 1,
+            "target": 4
+        },
+        {
+            "weight": 4.09544934006264,
+            "stype": 0,
+            "source": 1,
+            "target": 5
+        },
+        {
+            "weight": 5.753569465382691,
+            "stype": 0,
+            "source": 1,
+            "target": 7
+        },
+        {
+            "weight": 12.381129321992523,
+            "stype": 0,
+            "source": 1,
+            "target": 9
+        },
+        {
+            "weight": 5.1473105670938875,
+            "stype": 0,
+            "source": 1,
+            "target": 11
+        },
+        {
+            "weight": 7.474443532488362,
+            "stype": 0,
+            "source": 1,
+            "target": 13
+        },
+        {
+            "weight": 1.7414300478727385,
+            "stype": 0,
+            "source": 1,
+            "target": 15
+        },
+        {
+            "weight": 5.476461856467429,
+            "stype": 0,
+            "source": 1,
+            "target": 16
+        },
+        {
+            "weight": 4.609891054052865,
+            "stype": 1,
+            "source": 1,
+            "target": 23
+        },
+        {
+            "weight": 2.9805410614386685,
+            "stype": 0,
+            "source": 2,
+            "target": 3
+        },
+        {
+            "weight": 8.614482599753071,
+            "stype": 0,
+            "source": 2,
+            "target": 4
+        },
+        {
+            "weight": 0.5063681153445021,
+            "stype": 0,
+            "source": 2,
+            "target": 6
+        },
+        {
+            "weight": 1.5839087692124498,
+            "stype": 0,
+            "source": 2,
+            "target": 8
+        },
+        {
+            "weight": 0.6135888079299101,
+            "stype": 0,
+            "source": 2,
+            "target": 9
+        },
+        {
+            "weight": 8.46903805533713,
+            "stype": 0,
+            "source": 2,
+            "target": 13
+        },
+        {
+            "weight": 0.1120947512516346,
+            "stype": 0,
+            "source": 2,
+            "target": 14
+        },
+        {
+            "weight": 5.067661400238798,
+            "stype": 1,
+            "source": 2,
+            "target": 21
+        },
+        {
+            "weight": 7.504900359882513,
+            "stype": 1,
+            "source": 2,
+            "target": 22
+        },
+        {
+            "weight": 1.8812713081028787,
+            "stype": 1,
+            "source": 2,
+            "target": 29
+        },
+        {
+            "weight": 2.0881381782577315,
+            "stype": 1,
+            "source": 2,
+            "target": 33
+        },
+        {
+            "weight": 1.819973184545598,
+            "stype": 0,
+            "source": 3,
+            "target": 10
+        },
+        {
+            "weight": 7.021857855556613,
+            "stype": 0,
+            "source": 3,
+            "target": 12
+        },
+        {
+            "weight": 8.36563057051447,
+            "stype": 0,
+            "source": 3,
+            "target": 14
+        },
+        {
+            "weight": 0.41767551409216397,
+            "stype": 0,
+            "source": 3,
+            "target": 17
+        },
+        {
+            "weight": 4.577264470832077,
+            "stype": 0,
+            "source": 3,
+            "target": 18
+        },
+        {
+            "weight": 7.338757937254636,
+            "stype": 0,
+            "source": 4,
+            "target": 7
+        },
+        {
+            "weight": 10.294289267771095,
+            "stype": 0,
+            "source": 4,
+            "target": 9
+        },
+        {
+            "weight": 6.000482423956166,
+            "stype": 0,
+            "source": 4,
+            "target": 11
+        },
+        {
+            "weight": 11.827291087155622,
+            "stype": 0,
+            "source": 4,
+            "target": 13
+        },
+        {
+            "weight": 1.1794098388449803,
+            "stype": 0,
+            "source": 4,
+            "target": 16
+        },
+        {
+            "weight": 2.7028929375216726,
+            "stype": 1,
+            "source": 4,
+            "target": 25
+        },
+        {
+            "weight": 1.3433963691754538,
+            "stype": 1,
+            "source": 4,
+            "target": 26
+        },
+        {
+            "weight": 7.823604280667951,
+            "stype": 0,
+            "source": 5,
+            "target": 16
+        },
+        {
+            "weight": 0.11092026231421803,
+            "stype": 0,
+            "source": 6,
+            "target": 7
+        },
+        {
+            "weight": 1.6564908938138778,
+            "stype": 0,
+            "source": 6,
+            "target": 9
+        },
+        {
+            "weight": 6.448342235002125,
+            "stype": 0,
+            "source": 6,
+            "target": 11
+        },
+        {
+            "weight": 5.652303018395659,
+            "stype": 1,
+            "source": 6,
+            "target": 22
+        },
+        {
+            "weight": 7.732441441503965,
+            "stype": 1,
+            "source": 6,
+            "target": 24
+        },
+        {
+            "weight": 0.6356417261637303,
+            "stype": 1,
+            "source": 6,
+            "target": 31
+        },
+        {
+            "weight": 8.247164872557606,
+            "stype": 1,
+            "source": 6,
+            "target": 32
+        },
+        {
+            "weight": 14.298880941808855,
+            "stype": 0,
+            "source": 7,
+            "target": 9
+        },
+        {
+            "weight": 14.555508326133138,
+            "stype": 0,
+            "source": 7,
+            "target": 11
+        },
+        {
+            "weight": 4.668044588378118,
+            "stype": 0,
+            "source": 7,
+            "target": 13
+        },
+        {
+            "weight": 2.561992763526122,
+            "stype": 0,
+            "source": 7,
+            "target": 16
+        },
+        {
+            "weight": 4.378116766512294,
+            "stype": 1,
+            "source": 7,
+            "target": 20
+        },
+        {
+            "weight": 4.025730932370277,
+            "stype": 1,
+            "source": 7,
+            "target": 26
+        },
+        {
+            "weight": 5.770591904892218,
+            "stype": 1,
+            "source": 7,
+            "target": 27
+        },
+        {
+            "weight": 3.7362831934947045,
+            "stype": 1,
+            "source": 7,
+            "target": 32
+        },
+        {
+            "weight": 8.392834512591511,
+            "stype": 1,
+            "source": 8,
+            "target": 24
+        },
+        {
+            "weight": 13.65290693750203,
+            "stype": 0,
+            "source": 9,
+            "target": 11
+        },
+        {
+            "weight": 8.084451545778338,
+            "stype": 0,
+            "source": 9,
+            "target": 13
+        },
+        {
+            "weight": 3.026267913553038,
+            "stype": 0,
+            "source": 9,
+            "target": 16
+        },
+        {
+            "weight": 2.9134127826605076,
+            "stype": 1,
+            "source": 9,
+            "target": 20
+        },
+        {
+            "weight": 2.8315997865677764,
+            "stype": 1,
+            "source": 9,
+            "target": 26
+        },
+        {
+            "weight": 6.379168770752496,
+            "stype": 1,
+            "source": 9,
+            "target": 32
+        },
+        {
+            "weight": 6.101831595780771,
+            "stype": 0,
+            "source": 10,
+            "target": 12
+        },
+        {
+            "weight": 7.322173114535103,
+            "stype": 0,
+            "source": 10,
+            "target": 14
+        },
+        {
+            "weight": 3.369363288195304,
+            "stype": 0,
+            "source": 10,
+            "target": 17
+        },
+        {
+            "weight": 14.412284699845356,
+            "stype": 0,
+            "source": 10,
+            "target": 18
+        },
+        {
+            "weight": 7.281767828683216,
+            "stype": 1,
+            "source": 10,
+            "target": 19
+        },
+        {
+            "weight": 4.720362340221991,
+            "stype": 1,
+            "source": 10,
+            "target": 21
+        },
+        {
+            "weight": 8.027259648122131,
+            "stype": 1,
+            "source": 10,
+            "target": 23
+        },
+        {
+            "weight": 5.435620369048846,
+            "stype": 1,
+            "source": 10,
+            "target": 25
+        },
+        {
+            "weight": 14.733179285553785,
+            "stype": 1,
+            "source": 10,
+            "target": 28
+        },
+        {
+            "weight": 10.942350174598372,
+            "stype": 1,
+            "source": 10,
+            "target": 30
+        },
+        {
+            "weight": 4.006196719153133,
+            "stype": 1,
+            "source": 10,
+            "target": 33
+        },
+        {
+            "weight": 2.127345409926118,
+            "stype": 0,
+            "source": 11,
+            "target": 13
+        },
+        {
+            "weight": 5.133018257928151,
+            "stype": 1,
+            "source": 11,
+            "target": 20
+        },
+        {
+            "weight": 4.95999710365217,
+            "stype": 1,
+            "source": 11,
+            "target": 26
+        },
+        {
+            "weight": 5.356012386735928,
+            "stype": 1,
+            "source": 11,
+            "target": 31
+        },
+        {
+            "weight": 1.9020245529130826,
+            "stype": 1,
+            "source": 11,
+            "target": 32
+        },
+        {
+            "weight": 4.521398299190837,
+            "stype": 0,
+            "source": 12,
+            "target": 14
+        },
+        {
+            "weight": 11.707379026828413,
+            "stype": 0,
+            "source": 12,
+            "target": 17
+        },
+        {
+            "weight": 5.240896766985481,
+            "stype": 0,
+            "source": 12,
+            "target": 18
+        },
+        {
+            "weight": 1.4475044524602478,
+            "stype": 1,
+            "source": 12,
+            "target": 25
+        },
+        {
+            "weight": 10.18721923297271,
+            "stype": 0,
+            "source": 13,
+            "target": 16
+        },
+        {
+            "weight": 3.1825470426172235,
+            "stype": 1,
+            "source": 13,
+            "target": 32
+        },
+        {
+            "weight": 3.7693218273100015,
+            "stype": 0,
+            "source": 14,
+            "target": 17
+        },
+        {
+            "weight": 11.017080671273494,
+            "stype": 0,
+            "source": 14,
+            "target": 18
+        },
+        {
+            "weight": 1.3224005871903088,
+            "stype": 0,
+            "source": 15,
+            "target": 16
+        },
+        {
+            "weight": 3.9775108975056317,
+            "stype": 1,
+            "source": 15,
+            "target": 27
+        },
+        {
+            "weight": 10.058517204051805,
+            "stype": 1,
+            "source": 15,
+            "target": 29
+        },
+        {
+            "weight": 0.6356417261637303,
+            "stype": 1,
+            "source": 15,
+            "target": 31
+        },
+        {
+            "weight": 4.6045107307037645,
+            "stype": 1,
+            "source": 15,
+            "target": 33
+        },
+        {
+            "weight": 5.076483026689389,
+            "stype": 1,
+            "source": 16,
+            "target": 19
+        },
+        {
+            "weight": 5.757943584583149,
+            "stype": 1,
+            "source": 16,
+            "target": 20
+        },
+        {
+            "weight": 5.033668907581823,
+            "stype": 1,
+            "source": 16,
+            "target": 26
+        },
+        {
+            "weight": 7.468985914986821,
+            "stype": 1,
+            "source": 16,
+            "target": 27
+        },
+        {
+            "weight": 6.063635606439157,
+            "stype": 1,
+            "source": 16,
+            "target": 31
+        },
+        {
+            "weight": 4.451095128228966,
+            "stype": 0,
+            "source": 17,
+            "target": 18
+        },
+        {
+            "weight": 3.3490354675136422,
+            "stype": 1,
+            "source": 17,
+            "target": 23
+        },
+        {
+            "weight": 5.927230515201378,
+            "stype": 1,
+            "source": 17,
+            "target": 25
+        },
+        {
+            "weight": 1.878314434628319,
+            "stype": 1,
+            "source": 18,
+            "target": 19
+        },
+        {
+            "weight": 3.8589924969453584,
+            "stype": 1,
+            "source": 18,
+            "target": 28
+        }
+    ]
+}
