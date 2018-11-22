@@ -9,7 +9,7 @@ Author: HOURS Henri, HALAL Taha , ZHU Fangda, XIANG Yu
 - [dataset2.csv](dataset2.csv) -  dataset with 50100 features
 
 ### Assignment 1
-- [Assignment_1.ipynb](Assignment_1.ipynb) - The notebook for the first assignment. 
+- [20181012_VAST1_FITH_1.ipynb](20181012_VAST1_FITH_1.ipynb) - The notebook for the first assignment. 
 - [Assignment1_Report.pdf](Assignment1_Report.pdf) - The report for the first assignment
 - [vast.py](vast.py) - The librairy containing some utilities functons
 - [Allbirds_since2006.gif](Allbirds_since2006.gif) - The animation showing the density of all birds
