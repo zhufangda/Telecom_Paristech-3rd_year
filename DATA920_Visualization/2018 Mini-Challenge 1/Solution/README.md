@@ -4,7 +4,7 @@ Author: HOURS Henri, HALAL Taha , ZHU Fangda, XIANG Yu
 ## Description of Directory  Structure
 
 ### Assignment 2
-- [20181119_VAST1_FYTH_3.1.ipynb](20181119_VAST1_FYTH_3.ipynb) - The notebook for the second assignment with interactif graphics and conclusion. 
+- [20181119_VAST1_FYTH_3.1.ipynb](20181119_VAST1_FYTH_3.1.ipynb) - The notebook for the second assignment with interactif graphics and conclusion. 
 - [dataset_kasios.csv](dataset_kasios.csv) - Dataset Kasios
 - [dataset2.csv](dataset2.csv) -  dataset with 50100 features
 
