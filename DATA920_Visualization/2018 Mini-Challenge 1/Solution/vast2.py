@@ -33,6 +33,9 @@ def load_data(path, birds_data, kasios_data):
     data['Vocalization_type'] = data['Vocalization_type'].apply(str.lower)
     # delete spaces
     data['Vocalization_type'] = data['Vocalization_type'].apply(str.strip)
+    data['Date'] = pd.to_datetime(data['Date'], errors='coerce', dayfirst=True)
+    data['Year'] = data['Date'].dt.year
+    data['Month'] = data['Date'].dt.month
     # clean the grids 
     # returns -1 if not possible to select a number beetween 0 and 200
     data['X'] = data['X'].apply(clean_grid)
@@ -41,7 +44,7 @@ def load_data(path, birds_data, kasios_data):
     kasios_records = kasios_records.rename(index=str, columns={" X": "X", " Y":"Y"})
     return data, kasios_records, nb_categories, cat_bird, i_bp
 
-def vectorize(path):
+def vectorize(path, image):
     '''
     This function import the image from the path and vectorize it
     
@@ -50,7 +53,7 @@ def vectorize(path):
     path :               str, path of the image file
     --------------------------------------------------------
     '''
-    map_1 = imageio.imread(path)
+    map_1 = imageio.imread(path + image)
     map_2 = color.colorconv.rgb2grey(map_1)
     map_3 = np.flipud(map_2)
     map_contours = measure.find_contours(map_3, 0.8, fully_connected='high')
@@ -80,8 +83,7 @@ def print_map(a, map_contours, title):
     a.legend()
     return a
 
-def plotmap(data, kasios_records, list_kasios_bp=[]):
-    map_contours = vectorize("LekagulRoadways2018.png")
+def plotmap(data, kasios_records, map_contours, list_kasios_bp=[]):
     fig, ax = plt.subplots(figsize=(10,10))
     # print the map
     print_map(ax, map_contours, "All record locations")
@@ -107,6 +109,8 @@ def plotmap(data, kasios_records, list_kasios_bp=[]):
                     bbox={'pad':0.4, 'boxstyle':'circle', 
                           'edgecolor':'none', 'facecolor':'orange'})            
     ax.scatter([], [], color='orange', marker='o',s=100, label='Kasios records')
+    if list_kasios_bp:
+        ax.scatter([], [], color='blue', marker='o',s=100, label='Supposed BP Kasios')
     ax.legend(bbox_to_anchor=(1, 1), labelspacing=1)
     plt.show()
 
